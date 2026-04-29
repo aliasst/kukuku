@@ -21,7 +21,7 @@
                                 <div class="actions-title">Карточка участника</div>
                             </div>
                             <div class="event-actions">
-                                <a href="" type="button" class="orange-btn orange-btn-small">
+                                <a href="{{ route('profile.show') }}" type="button" class="orange-btn orange-btn-small">
                                     Редактировать
                                 </a>
 
