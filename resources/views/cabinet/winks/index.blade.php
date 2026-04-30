@@ -184,7 +184,7 @@
                         const winkId = this.dataset.winkId;
                         const row = this.closest('.wink-item');
 
-                        if (!confirm('Подтвердить подмигивание? Это действие нельзя отменить.')) return;
+                        // if (!confirm('Подтвердить подмигивание? Это действие нельзя отменить.')) return;
 
                         try {
                             const response = await fetch(`/cabinet/wink/${winkId}/accept`, {
@@ -232,7 +232,7 @@
                         const winkId = this.dataset.winkId;
                         const row = this.closest('.wink-item');
 
-                        if (!confirm('Проигнорировать подмигивание?')) return;
+                        // if (!confirm('Проигнорировать подмигивание?')) return;
 
                         try {
                             const response = await fetch(`/cabinet/wink/${winkId}/ignore`, {

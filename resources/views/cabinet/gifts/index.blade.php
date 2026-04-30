@@ -179,7 +179,7 @@
                         const giftId = this.dataset.giftId;
                         const row = this.closest('.gift-item');
 
-                        if (!confirm('Получить подарок?')) return;
+                        // if (!confirm('Получить подарок?')) return;
 
                         try {
                             const response = await fetch(`/cabinet/gift/${giftId}/accept`, {
@@ -226,7 +226,7 @@
                         const giftId = this.dataset.giftId;
                         const row = this.closest('.gift-item');
 
-                        if (!confirm('Отказаться от подарка? Это действие нельзя отменить.')) return;
+                        // if (!confirm('Отказаться от подарка? Это действие нельзя отменить.')) return;
 
                         try {
                             const response = await fetch(`/cabinet/gift/${giftId}/ignore`, {

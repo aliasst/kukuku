@@ -8,6 +8,12 @@ use App\Http\Controllers\Cabinet\ProfileController;
 use App\Http\Controllers\ForgotPasswordController;
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
+use App\Http\Controllers\Admin\UserController as AdminUserController;
+use App\Http\Controllers\Admin\EventController as AdminEventController;
+use App\Http\Controllers\Admin\GiftController as AdminGiftController;
+use App\Http\Controllers\Admin\WinkController as AdminWinkController;
+
 Route::get('/', function () {
     return view('home');
 })->name('home');
@@ -71,3 +77,21 @@ Route::prefix('cabinet')->middleware(['auth'])->group(function () {
     Route::post('/profile', [ProfileController::class, 'store'])->name('profile.store');
 });
 
+// Админ-панель
+Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin'])->group(function () {
+    Route::get('/', [AdminDashboardController::class, 'index'])->name('dashboard');
+
+    // Управление пользователями
+    Route::resource('users', AdminUserController::class)->except(['show', 'create', 'store']);
+    Route::put('users/{user}/role', [AdminUserController::class, 'updateRole'])->name('users.update-role');
+
+    // Управление событиями
+    Route::resource('events', AdminEventController::class);
+
+    // Подарки
+    Route::get('/gifts', [AdminGiftController::class, 'index'])->name('gifts.index');
+    Route::post('/gifts/sort', [AdminGiftController::class, 'updateSort'])->name('gifts.sort');
+
+    // Подмигивания
+    Route::get('/winks', [AdminWinkController::class, 'index'])->name('winks.index');
+});
