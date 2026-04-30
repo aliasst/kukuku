@@ -154,11 +154,11 @@
                                                     </div>
                                                 </div>
 
-                                                @if($wink->isMutual())
-                                                    <div class="alert alert-success mt-2 mb-0 py-1 px-2 small">
-                                                        💕 Взаимно! Пользователь тоже подмигнул вам.
-                                                    </div>
-                                                @endif
+{{--                                                @if($wink->isMutual())--}}
+{{--                                                    <div class="alert alert-success mt-2 mb-0 py-1 px-2 small">--}}
+{{--                                                        💕 Взаимно! Пользователь тоже подмигнул вам.--}}
+{{--                                                    </div>--}}
+{{--                                                @endif--}}
                                             </div>
                                         @endforeach
                                     @else
