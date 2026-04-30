@@ -35,7 +35,7 @@ class Profile extends Model
         if ($this->avatar && Storage::disk('public')->exists($this->avatar)) {
             return Storage::url($this->avatar);
         }
-        return '';
+        return '/storage/img/ava.png';
     }
 
     public function getFormattedDateAttribute()

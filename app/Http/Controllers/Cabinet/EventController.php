@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Cabinet;
 
 use App\Http\Controllers\Controller;
 use App\Models\Event;
+use App\Models\GiftUser;
+use App\Models\Gift;
+use App\Models\Wink;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -48,6 +51,7 @@ class EventController extends Controller
     public function past(Request $request)
     {
         $query = Event::where('type', Event::TYPE_PAST);
+        $gifts = Gift::where('is_active', true)->orderBy('sort_order')->get();
 
         // Поиск
         if ($request->has('search')) {
@@ -72,7 +76,7 @@ class EventController extends Controller
             'paid' => Event::where('type', Event::TYPE_PAST)->where('is_free', false)->where('price', '>', 0)->count(),
         ];
 
-        return view('cabinet.events.past', compact('events', 'stats'));
+        return view('cabinet.events.past', compact('events', 'gifts', 'stats'));
     }
 
 
@@ -203,7 +207,7 @@ class EventController extends Controller
                     'name' => $user->name,
                     'avatar' => $user->profile && $user->profile->avatar
                         ? Storage::url($user->profile->avatar)
-                        : 'https://ui-avatars.com/api/?name=' . urlencode($user->name) . '&background=667eea&color=fff&size=80'
+                        : '/storage/img/ava.png'
                 ];
             });
 
@@ -212,4 +216,286 @@ class EventController extends Controller
             'participants' => $participants
         ]);
     }
+
+    // Сохранить подарок (AJAX)
+    public function sendGift(Request $request)
+    {
+        $request->validate([
+            'event_id' => 'required|exists:events,id',
+            'gift_id' => 'required|exists:gifts,id',
+            'to_user_ids' => 'required|array',
+            'to_user_ids.*' => 'exists:users,id',
+            'message' => 'nullable|string|max:500'
+        ]);
+
+        $fromUserId = auth()->id();
+        $eventId = $request->event_id;
+        $giftId = $request->gift_id;
+        $message = $request->message;
+
+        $saved = 0;
+        $errors = [];
+
+        foreach ($request->to_user_ids as $toUserId) {
+            try {
+                GiftUser::create([
+                    'gift_id' => $giftId,
+                    'from_user_id' => $fromUserId,
+                    'to_user_id' => $toUserId,
+                    'event_id' => $eventId,
+                    'message' => $message
+                ]);
+                $saved++;
+            } catch (\Exception $e) {
+                $errors[] = "Ошибка при отправке пользователю ID: {$toUserId}";
+            }
+        }
+
+        if ($saved > 0) {
+            return response()->json([
+                'success' => true,
+                'message' => "Подарок успешно отправлен {$saved} пользователям!",
+                'sent_count' => $saved,
+                'errors' => $errors
+            ]);
+        }
+
+        return response()->json([
+            'success' => false,
+            'message' => 'Не удалось отправить подарок',
+            'errors' => $errors
+        ], 500);
+    }
+
+
+    // Отправить подмигивание
+    public function sendWink(Request $request)
+    {
+        $request->validate([
+            'event_id' => 'required|exists:events,id',
+            'to_user_ids' => 'required|array',
+            'to_user_ids.*' => 'exists:users,id',
+        ]);
+
+        $fromUserId = auth()->id();
+        $eventId = $request->event_id;
+
+        $toUserIds = array_filter($request->to_user_ids, function($id) use ($fromUserId) {
+            return $id != $fromUserId;
+        });
+
+        if (empty($toUserIds)) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Нельзя подмигнуть самому себе'
+            ], 400);
+        }
+
+        $saved = 0;
+        $mutualCount = 0;
+        $errors = [];
+
+        foreach ($toUserIds as $toUserId) {
+            try {
+                $exists = Wink::where('from_user_id', $fromUserId)
+                    ->where('to_user_id', $toUserId)
+                    ->where('event_id', $eventId)
+                    ->exists();
+
+                if (!$exists) {
+                    $wink = Wink::create([
+                        'from_user_id' => $fromUserId,
+                        'to_user_id' => $toUserId,
+                        'event_id' => $eventId,
+                    ]);
+                    $saved++;
+
+                    // Проверяем встречное подмигивание
+                    $mutualWink = Wink::where('from_user_id', $toUserId)
+                        ->where('to_user_id', $fromUserId)
+                        ->where('event_id', $eventId)
+                        ->where('status', Wink::STATUS_PENDING)
+                        ->first();
+
+                    if ($mutualWink) {
+                        $mutualWink->status = Wink::STATUS_ACCEPTED;
+                        $mutualWink->save();
+
+                        $wink->status = Wink::STATUS_ACCEPTED;
+                        $wink->save();
+
+                        $mutualCount++;
+                    }
+                }
+            } catch (\Exception $e) {
+                $errors[] = "Ошибка при отправке пользователю ID: {$toUserId}";
+            }
+        }
+
+        $message = "😉 Подмигивание отправлено {$saved} пользователям!";
+        if ($mutualCount > 0) {
+            $message .= " У вас взаимная симпатия с {$mutualCount} пользователями! 💕";
+        }
+
+        if ($saved > 0) {
+            return response()->json([
+                'success' => true,
+                'message' => $message,
+                'sent_count' => $saved,
+                'mutual_count' => $mutualCount,
+                'errors' => $errors
+            ]);
+        }
+
+        return response()->json([
+            'success' => false,
+            'message' => 'Не удалось отправить подмигивание',
+            'errors' => $errors
+        ], 500);
+    }
+
+// Подтвердить подмигивание
+    public function acceptWink($winkId)
+    {
+        $wink = Wink::findOrFail($winkId);
+
+        if ($wink->to_user_id !== auth()->id()) {
+            return response()->json(['success' => false, 'message' => 'Доступ запрещен'], 403);
+        }
+
+        $wink->status = Wink::STATUS_ACCEPTED;
+        $wink->save();
+
+        // Проверяем встречное подмигивание
+        $mutualWink = Wink::where('from_user_id', $wink->to_user_id)
+            ->where('to_user_id', $wink->from_user_id)
+            ->where('event_id', $wink->event_id)
+            ->first();
+
+        if ($mutualWink && $mutualWink->status === Wink::STATUS_PENDING) {
+            $mutualWink->status = Wink::STATUS_ACCEPTED;
+            $mutualWink->save();
+        }
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Подмигивание подтверждено! 💕'
+        ]);
+    }
+
+// Проигнорировать подмигивание
+    public function ignoreWink($winkId)
+    {
+        $wink = Wink::findOrFail($winkId);
+
+        if ($wink->to_user_id !== auth()->id()) {
+            return response()->json(['success' => false, 'message' => 'Доступ запрещен'], 403);
+        }
+
+        $wink->status = Wink::STATUS_IGNORED;
+        $wink->save();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Подмигивание проигнорировано'
+        ]);
+    }
+
+// Получить список подмигиваний
+    public function getMyWinks()
+    {
+        $receivedWinks = Wink::where('to_user_id', auth()->id())
+            ->with(['fromUser', 'event'])
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        $sentWinks = Wink::where('from_user_id', auth()->id())
+            ->with(['toUser', 'event'])
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        return view('cabinet.winks.index', compact('receivedWinks', 'sentWinks'));
+    }
+
+// Получить количество непросмотренных
+    public function getUnviewedWinksCount()
+    {
+        return response()->json([
+            'count' => Wink::getUnviewedCount(auth()->id())
+        ]);
+    }
+
+
+
+// Получить подарок (подтвердить)
+    public function acceptGift($giftId)
+    {
+        $gift = GiftUser::findOrFail($giftId);
+
+        if ($gift->to_user_id !== auth()->id()) {
+            return response()->json(['success' => false, 'message' => 'Доступ запрещен'], 403);
+        }
+
+        if ($gift->status !== GiftUser::STATUS_PENDING) {
+            return response()->json(['success' => false, 'message' => 'Подарок уже обработан'], 400);
+        }
+
+        $gift->status = GiftUser::STATUS_ACCEPTED;
+        $gift->save();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Подарок получен! Спасибо! 🎁'
+        ]);
+    }
+
+// Отказаться от подарка (игнорировать)
+    public function ignoreGift($giftId)
+    {
+        $gift = GiftUser::findOrFail($giftId);
+
+        if ($gift->to_user_id !== auth()->id()) {
+            return response()->json(['success' => false, 'message' => 'Доступ запрещен'], 403);
+        }
+
+        if ($gift->status !== GiftUser::STATUS_PENDING) {
+            return response()->json(['success' => false, 'message' => 'Подарок уже обработан'], 400);
+        }
+
+        $gift->status = GiftUser::STATUS_IGNORED;
+        $gift->save();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Вы отказались от подарка'
+        ]);
+    }
+
+// Страница мои подарки
+    public function getMyGifts()
+    {
+        $receivedGifts = GiftUser::where('to_user_id', auth()->id())
+            ->with(['gift', 'fromUser', 'event'])
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        $sentGifts = GiftUser::where('from_user_id', auth()->id())
+            ->with(['gift', 'toUser', 'event'])
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        return view('cabinet.gifts.index', compact('receivedGifts', 'sentGifts'));
+    }
+
+// Получить количество неподтвержденных подарков
+    public function getUnviewedGiftsCount()
+    {
+        return response()->json([
+            'count' => GiftUser::where('to_user_id', auth()->id())
+                ->where('status', 'pending')
+                ->count()
+        ]);
+    }
+
+
 }

@@ -47,8 +47,24 @@ Route::prefix('cabinet')->middleware(['auth'])->group(function () {
         ->name('events.participants')
         ->where('event', '[0-9]+');
 
+    // AJAX подарить подарок
+    Route::post('/send-gift', [EventController::class, 'sendGift'])->name('send.gift');
+
     // AJAX регистрация на событие
     Route::post('/events/ajax-register', [EventParticipantController::class, 'ajaxRegister'])->name('events.ajax.register');
+
+    // Подмигивания
+    Route::post('/send-wink', [EventController::class, 'sendWink'])->name('send.wink');
+    Route::post('/wink/{winkId}/accept', [EventController::class, 'acceptWink'])->name('wink.accept');
+    Route::post('/wink/{winkId}/ignore', [EventController::class, 'ignoreWink'])->name('wink.ignore');
+    Route::get('/my-winks', [EventController::class, 'getMyWinks'])->name('my.winks');
+    Route::get('/unviewed-winks-count', [EventController::class, 'getUnviewedWinksCount'])->name('unviewed.winks');
+
+    // Подарки
+    Route::post('/gift/{giftId}/accept', [EventController::class, 'acceptGift'])->name('gift.accept');
+    Route::post('/gift/{giftId}/ignore', [EventController::class, 'ignoreGift'])->name('gift.ignore');
+    Route::get('/my-gifts', [EventController::class, 'getMyGifts'])->name('my.gifts');
+    Route::get('/unviewed-gifts-count', [EventController::class, 'getUnviewedGiftsCount'])->name('unviewed.gifts');
 
     // Маршруты для профиля
     Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');

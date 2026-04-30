@@ -11,42 +11,72 @@ use Illuminate\Support\Str;
 
 class User extends Authenticatable
 {
-    /** @use HasFactory<UserFactory> */
     use HasFactory, Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var list<string>
-     */
+    // Константы ролей
+    const ROLE_ADMIN = 'admin';
+    const ROLE_EDITOR = 'editor';
+    const ROLE_USER = 'user';
+
     protected $fillable = [
-        'name',
-        'email',
-        'password',
+        'name', 'email', 'password', 'role'
     ];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var list<string>
-     */
     protected $hidden = [
-        'password',
-        'remember_token',
+        'password', 'remember_token',
     ];
 
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
-    protected function casts(): array
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+    ];
+
+    // Проверки ролей
+    public function isAdmin()
     {
-        return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
-        ];
+        return $this->role === self::ROLE_ADMIN;
     }
+
+    public function isEditor()
+    {
+        return $this->role === self::ROLE_EDITOR;
+    }
+
+    public function isUser()
+    {
+        return $this->role === self::ROLE_USER;
+    }
+
+    public function hasRole($role)
+    {
+        return $this->role === $role;
+    }
+
+    public function hasAnyRole($roles)
+    {
+        return in_array($this->role, (array) $roles);
+    }
+
+    // Получить название роли
+    public function getRoleNameAttribute()
+    {
+        return match($this->role) {
+            self::ROLE_ADMIN => 'Администратор',
+            self::ROLE_EDITOR => 'Редактор',
+            self::ROLE_USER => 'Пользователь',
+            default => 'Неизвестно',
+        };
+    }
+
+    public function getRoleBadgeClassAttribute()
+    {
+        return match($this->role) {
+            self::ROLE_ADMIN => 'bg-danger',
+            self::ROLE_EDITOR => 'bg-warning text-dark',
+            self::ROLE_USER => 'bg-secondary',
+            default => 'bg-dark',
+        };
+    }
+
 
     // Генерация уникального токена для сброса пароля
     public function generatePasswordResetToken()

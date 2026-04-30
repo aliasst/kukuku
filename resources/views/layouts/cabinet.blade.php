@@ -53,6 +53,8 @@
 
                                 <ul>
                                     <li><a href="{{ route('profile.show') }}">Профиль</a></li>
+                                    <li><a href="{{ route('my.winks') }}">Мои подмигивания</a></li>
+                                    <li><a href="{{ route('my.gifts') }}">Мои подарки</a></li>
                                     @if (Route::has('logout'))
                                         <li><a class="btn-link btn-unlogin" href="{{ route('logout') }}"
                                                onclick="event.preventDefault();
@@ -65,6 +67,8 @@
                                         </form>
 
                                     @endif
+
+
 
                                 </ul>
                             </div>

@@ -29,5 +29,10 @@ class DatabaseSeeder extends Seeder
         // Затем создаем пользователей и регистрируем их на события
         $this->call(UserEventSeeder::class);
 
+        $this->call(GiftSeeder::class);
+
+        // Создаем специальных пользователей (админ, тестовый)
+        $this->call(SpecialUsersSeeder::class);
+
     }
 }
