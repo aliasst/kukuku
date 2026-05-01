@@ -17,7 +17,7 @@
         }
 
         body {
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            background: #fff;
             min-height: 100vh;
             display: flex;
             align-items: center;
@@ -27,7 +27,7 @@
         }
 
         .login-card {
-            background: #0f0f1a;
+            background: linear-gradient(180deg, #f6a23c 98%);
             border-radius: 20px;
             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
             overflow: hidden;
@@ -49,7 +49,7 @@
         }
 
         .login-header {
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            background: linear-gradient(180deg, #f6a23c 98%);
             padding: 35px 30px;
             text-align: center;
             color: #e2e8f0;
@@ -68,13 +68,15 @@
             font-size: 14px;
             opacity: 0.6;
             margin-bottom: 0;
-            color: #94a3b8;
+            color: #060000;
         }
 
         .logo-icon {
             font-size: 52px;
             margin-bottom: 15px;
-            color: #818cf8;
+            color:  rgb(245, 75, 16);
+
+
         }
 
         .login-body {
@@ -83,31 +85,31 @@
 
         .form-control {
             border-radius: 10px;
-            border: 1px solid #2d2d44;
-            background: #0a0a12;
+            border: 0;
+            background: #ffc074;
             padding: 12px 15px;
             font-size: 14px;
-            color: #e2e8f0;
+            color: #060000;
             transition: all 0.3s;
         }
 
         .form-control:focus {
-            border-color: #818cf8;
-            background: #12121c;
+            border-color: #060000;
+            background: #ffc074;
             box-shadow: 0 0 0 3px rgba(129, 140, 248, 0.15);
-            color: #f1f5f9;
+            color: #060000;
         }
 
         .form-control::placeholder {
-            color: #4a4a6a;
+            color: #060000;
         }
 
         .input-group-text {
-            background: #0a0a12;
-            border: 1px solid #2d2d44;
+            background: #ffc074;
+            border: 0;
             border-right: none;
             border-radius: 10px 0 0 10px;
-            color: #818cf8;
+            color: #060000;
         }
 
         .input-group .form-control {
@@ -116,8 +118,8 @@
         }
 
         .btn-login {
-            background: #2d2d44;
-            border: 1px solid #3d3d5a;
+            background: linear-gradient(90.00deg, rgb(247, 90, 34), rgb(255, 98, 43) 50%, rgb(245, 75, 16) 96%);
+            border: 0;
             padding: 12px;
             font-size: 16px;
             font-weight: 600;
@@ -128,25 +130,26 @@
         }
 
         .btn-login:hover {
-            background: #3d3d5a;
-            border-color: #818cf8;
+            background: linear-gradient(90.00deg, rgb(247, 90, 34), rgb(255, 98, 43) 50%, rgb(245, 75, 16) 96%);
+            border-color: #060000;
             color: #e2e8f0;
             transform: translateY(-1px);
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
         }
 
         .form-check-input {
-            background-color: #0a0a12;
+            background-color: #ffc074;
+            border:0;
             border-color: #2d2d44;
         }
 
         .form-check-input:checked {
-            background-color: #818cf8;
-            border-color: #818cf8;
+            background-color: #060000;
+            border-color: #060000;
         }
 
         .form-check-label {
-            color: #94a3b8;
+            color: #060000;
             font-size: 13px;
         }
 
@@ -170,7 +173,7 @@
         }
 
         .back-to-site a {
-            color: #818cf8;
+            color: #060000;
             text-decoration: none;
             font-size: 13px;
             transition: all 0.3s;
@@ -184,7 +187,7 @@
         }
 
         .forgot-link {
-            color: #818cf8;
+            color: #060000;
             font-size: 12px;
             text-decoration: none;
             opacity: 0.7;
@@ -201,7 +204,7 @@
         }
 
         label {
-            color: #94a3b8;
+            color: #060000;
             font-size: 12px;
             font-weight: 500;
             margin-bottom: 8px;
@@ -212,7 +215,7 @@
 
         /* Стили для иконок внутри полей */
         .input-group-text i {
-            color: #818cf8;
+            color: #060000;
             opacity: 0.7;
         }
 
@@ -233,7 +236,7 @@
         <div class="logo-icon">
             <i class="fas fa-shield-alt"></i>
         </div>
-        <h1>Admin Panel</h1>
+        <h1>Админ панель</h1>
         <p>Войдите, чтобы продолжить</p>
     </div>
 
