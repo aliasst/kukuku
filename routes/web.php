@@ -8,11 +8,41 @@ use App\Http\Controllers\Cabinet\ProfileController;
 use App\Http\Controllers\ForgotPasswordController;
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\Admin\AuthController as AdminAuthController;
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\Admin\EventController as AdminEventController;
 use App\Http\Controllers\Admin\GiftController as AdminGiftController;
 use App\Http\Controllers\Admin\WinkController as AdminWinkController;
+
+
+// ========== АДМИН-ПАНЕЛЬ ==========
+
+// Гостевые маршруты для админки (без middleware)
+Route::prefix('admin')->name('admin.')->group(function () {
+    Route::get('/login', [AdminAuthController::class, 'showLoginForm'])->name('login');
+    Route::post('/login', [AdminAuthController::class, 'login'])->name('login.submit');
+    Route::post('/logout', [AdminAuthController::class, 'logout'])->name('logout');
+});
+
+// Защищенные маршруты админки (с middleware)
+Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin'])->group(function () {
+    Route::get('/', [AdminDashboardController::class, 'index'])->name('dashboard');
+    Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard'); // Добавляем дополнительный маршрут
+    Route::resource('users', AdminUserController::class)->except(['show', 'create', 'store']);
+    Route::put('users/{user}/role', [AdminUserController::class, 'updateRole'])->name('users.update-role');
+    Route::resource('events', AdminEventController::class);
+    Route::get('/gifts', [AdminGiftController::class, 'index'])->name('gifts.index');
+    Route::get('/winks', [AdminWinkController::class, 'index'])->name('winks.index');
+});
+
+// Перенаправление
+Route::get('/admin', function () {
+    if (auth()->check() && auth()->user()->isAdmin()) {
+        return redirect()->route('admin.dashboard');
+    }
+    return redirect()->route('admin.login');
+});
 
 Route::get('/', function () {
     return view('home');
@@ -77,21 +107,3 @@ Route::prefix('cabinet')->middleware(['auth'])->group(function () {
     Route::post('/profile', [ProfileController::class, 'store'])->name('profile.store');
 });
 
-// Админ-панель
-Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin'])->group(function () {
-    Route::get('/', [AdminDashboardController::class, 'index'])->name('dashboard');
-
-    // Управление пользователями
-    Route::resource('users', AdminUserController::class)->except(['show', 'create', 'store']);
-    Route::put('users/{user}/role', [AdminUserController::class, 'updateRole'])->name('users.update-role');
-
-    // Управление событиями
-    Route::resource('events', AdminEventController::class);
-
-    // Подарки
-    Route::get('/gifts', [AdminGiftController::class, 'index'])->name('gifts.index');
-    Route::post('/gifts/sort', [AdminGiftController::class, 'updateSort'])->name('gifts.sort');
-
-    // Подмигивания
-    Route::get('/winks', [AdminWinkController::class, 'index'])->name('winks.index');
-});

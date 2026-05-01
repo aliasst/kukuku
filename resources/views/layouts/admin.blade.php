@@ -1,4 +1,6 @@
-<!DOCTYPE html>
+@auth
+    @if(auth()->user()->isAdmin())
+    <!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
@@ -232,6 +234,29 @@
                 font-size: 12px;
             }
         }
+
+        /* Стили для предупреждений о размере изображения */
+        .alert-danger {
+            background-color: #f8d7da;
+            border-left: 4px solid #dc3545;
+        }
+
+        .alert-info {
+            background-color: #d1ecf1;
+            border-left: 4px solid #17a2b8;
+        }
+
+        .image-size-warning {
+            font-size: 12px;
+            color: #dc3545;
+            font-weight: 500;
+        }
+
+        .image-size-good {
+            font-size: 12px;
+            color: #28a745;
+            font-weight: 500;
+        }
     </style>
 </head>
 <body>
@@ -269,12 +294,12 @@
                 <a class="nav-link" href="{{ route('home') }}">
                     <i class="fas fa-arrow-left"></i> На сайт
                 </a>
-                <a class="nav-link" href="{{ route('logout') }}"
-                   onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                    <i class="fas fa-sign-out-alt"></i> Выход
-                </a>
-                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                <!-- Кнопка выхода из админки -->
+                <form method="POST" action="{{ route('admin.logout') }}" style="display: inline-block; width: 100%;">
                     @csrf
+                    <button type="submit" class="nav-link" style="background: none; border: none; width: 100%; text-align: left; cursor: pointer;">
+                        <i class="fas fa-sign-out-alt"></i> Выход
+                    </button>
                 </form>
             </div>
         </div>
@@ -304,3 +329,10 @@
 <script src="{{ asset('foradmin/bootstrap.bundle.min.js') }}"></script>
 </body>
 </html>
+    @else
+        <script>window.location.href = "{{ route('admin.login') }}";</script>
+    @endif
+@else
+    <script>window.location.href = "{{ route('admin.login') }}";</script>
+@endif
+
