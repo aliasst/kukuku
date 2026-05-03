@@ -1890,6 +1890,7 @@ order:0;
 
 .cabinet-actions-section-item {
 	margin-bottom: 50px;
+    max-width: 335px;
 }
 
 .cabinet-actions-section-item .image-preview {
@@ -1909,7 +1910,7 @@ order:0;
 
 .item-actons {
 	display:flex;
-	justify-content: space-between;
+    flex-wrap: wrap;
 }
 
 .item-actons span.item-actions-name{
@@ -1918,7 +1919,20 @@ order:0;
 	font-size: 17px;
 	line-height: 152%;
 	color: #252525;
+    width:50%;
 }
+
+.file-list {
+    font-family: Montserrat, serif, serif;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 152%;
+    color: #252525;
+}
+.file-list a.btn-link {
+    color:#F6A23C;
+}
+
 
 .item-actons span.item-actions-btn{
 	font-family: Montserrat, serif;
@@ -1929,6 +1943,7 @@ order:0;
 	text-decoration-skip-ink: none;
 	color: #252525;
 	cursor: pointer;
+
 }
 
 .btn-section {
@@ -2725,7 +2740,7 @@ select.field-editable.edit-mode {
 
 .files-main-wrap {
     text-align: right;
-    width:200px;
+    width:50%;
     display:table;
 }
 
@@ -2827,4 +2842,110 @@ select.field-editable.edit-mode {
 
 .doc-upload-row {
     margin-bottom: 20px;
+}
+
+/* ========== TOAST УВЕДОМЛЕНИЯ (единый стиль для всей платформы) ========== */
+.toast-notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    min-width: 280px;
+    max-width: 400px;
+    background: #FFFFFF;
+    border-radius: 20px;                /* Скругление как у карточек */
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(246, 162, 60, 0.2);
+    z-index: 10000;
+    transform: translateX(400px);
+    transition: transform 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+    font-family: 'Montserrat', sans-serif;
+    backdrop-filter: blur(0px);
+    border: 1px solid #FFD7BD;
+}
+
+.toast-notification.show {
+    transform: translateX(0);
+}
+
+/* Цветовые варианты (левая полоска) */
+/*.toast-notification.success {*/
+/*    border-left: 4px solid #4CAF50;*/
+/*}*/
+/*.toast-notification.error {*/
+/*    border-left: 4px solid #F54C10;*/
+/*}*/
+/*.toast-notification.info {*/
+/*    border-left: 4px solid #F6A23C;*/
+/*}*/
+
+/* Шапка тоста */
+.toast-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 18px 8px 18px;
+    background: transparent;
+    border-bottom: 1px solid #FFE2CC;
+    border-radius: 20px 20px 0 0;
+    font-family: 'Unbounded', sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1.2;
+    color: #252525;
+}
+
+.toast-header strong {
+    font-weight: 600;
+    color: #1e1e2f;
+}
+
+.toast-close {
+    background: none;
+    border: none;
+    font-size: 22px;
+    line-height: 1;
+    cursor: pointer;
+    color: #6c757d;
+    transition: color 0.2s;
+    padding: 0;
+    width: 24px;
+    height: 24px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+.toast-close:hover {
+    color: #F54C10;
+    background-color: rgba(245, 76, 16, 0.1);
+}
+
+/* Тело тоста */
+.toast-body {
+    padding: 12px 18px 16px 18px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1.4;
+    color: #252525;
+    word-break: break-word;
+}
+
+/* Адаптация для мобильных */
+@media (max-width: 576px) {
+    .toast-notification {
+        left: 16px;
+        right: 16px;
+        min-width: auto;
+        max-width: calc(100% - 32px);
+        top: 16px;
+    }
+    .toast-header {
+        padding: 10px 14px 6px 14px;
+        font-size: 13px;
+    }
+    .toast-body {
+        padding: 8px 14px 12px 14px;
+        font-size: 13px;
+    }
 }

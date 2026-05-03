@@ -105,5 +105,10 @@ Route::prefix('cabinet')->middleware(['auth'])->group(function () {
     // Маршруты для профиля
     Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
     Route::post('/profile', [ProfileController::class, 'store'])->name('profile.store');
+    Route::post('/profile/update-field', [ProfileController::class, 'updateField'])->name('profile.update-field');
+    Route::post('/profile/upload-avatar', [ProfileController::class, 'uploadAvatar'])->name('profile.upload-avatar');
+    Route::post('/profile/upload-documents', [ProfileController::class, 'uploadDocuments'])->name('profile.upload-documents');
+    Route::post('/profile/upload-files', [ProfileController::class, 'uploadFiles'])->name('profile.upload-files');
+    Route::delete('/profile/delete-file/{id}', [ProfileController::class, 'deleteFile'])->name('profile.delete-file');
 });
 
