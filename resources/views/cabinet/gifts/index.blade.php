@@ -32,12 +32,12 @@
                                 <div class="card-body" style="max-height: 600px; overflow-y: auto;">
                                     @if($receivedGifts->count() > 0)
                                         @foreach($receivedGifts as $gift)
-                                            <div class="border-bottom pb-3 mb-3 gift-item"
+                                            <div class="gift-item"
                                                  data-gift-id="{{ $gift->id }}">
                                                 <div class="d-flex justify-content-between align-items-start">
                                                     <div class="flex-grow-1">
                                                         <div class="d-flex align-items-center mb-2">
-                                                            <div class="gift-icon me-2" style="">
+                                                            <div class="gift-icon" style="">
                                                                 <div class="gift-circle">
                                                                     <img
                                                                         src="{{ asset($gift->gift->icon)}}"
@@ -48,24 +48,38 @@
                                                             </div>
                                                             <div class="p-name">
                                                                 <strong>{{ $gift->gift->name ?? 'Подарок' }}</strong>
-                                                                <span
-                                                                    class="badge {{ $gift->status_badge_class }} ms-2">
-                                                    {{ $gift->status_name }}
-                                                </span>
+
                                                                 <br>
                                                                 <small class="text-muted">
                                                                     от  {{ $gift->fromUser->name }}
                                                                 </small>
                                                             </div>
+                                                            @if($gift->status === 'pending')
+                                                                <div class="btn-group">
+                                                                    <button class="accept-gift"
+                                                                            data-gift-id="{{ $gift->id }}"
+                                                                            title="Получить подарок">
+                                                                        <!--Получить-->
+                                                                    </button>
+                                                                    <button class="ignore-gift"
+                                                                            data-gift-id="{{ $gift->id }}"
+                                                                            title="Отказаться">
+                                                                        <!--Отказаться-->
+                                                                    </button>
+                                                                </div>
+                                                            @endif
                                                         </div>
-                                                        <div class="ms-4">
-                                                            <small class="text-muted">
-                                                                📅 {{ $gift->event->title }}
-                                                            </small>
-                                                            <br>
-                                                            <small class="text-muted">
-                                                                🕐 {{ $gift->created_at->format('d.m.Y H:i') }}
-                                                            </small>
+                                                        <div class="meta-list">
+                                                            <span class="m-calend">
+                                                                {{ $gift->event->title }}
+                                                            </span>
+                                                            <span class="m-date">
+                                                                {{ $gift->created_at->format('d.m.Y H:i') }}
+                                                            </span>
+                                                            <span
+                                                                class="badge m-status {{ $gift->status_badge_class }}">
+                                                    {{ $gift->status_name }}
+                                                            </span>
 {{--                                                            @if($gift->message)--}}
 {{--                                                                <div--}}
 {{--                                                                    class="alert alert-light mt-2 mb-0 py-1 px-2 small">--}}
@@ -75,20 +89,7 @@
                                                         </div>
                                                     </div>
 
-                                                    @if($gift->status === 'pending')
-                                                        <div class="btn-group">
-                                                            <button class="btn btn-sm accept-gift"
-                                                                    data-gift-id="{{ $gift->id }}"
-                                                                    title="Получить подарок">
-                                                                ✅ <!--Получить-->
-                                                            </button>
-                                                            <button class="btn btn-sm ignore-gift"
-                                                                    data-gift-id="{{ $gift->id }}"
-                                                                    title="Отказаться">
-                                                                ❌ <!--Отказаться-->
-                                                            </button>
-                                                        </div>
-                                                    @endif
+
                                                 </div>
                                             </div>
                                         @endforeach
@@ -113,11 +114,11 @@
                                 <div class="card-body" style="max-height: 600px; overflow-y: auto;">
                                     @if($sentGifts->count() > 0)
                                         @foreach($sentGifts as $gift)
-                                            <div class="border-bottom pb-3 mb-3">
+                                            <div class="gift-item-sent">
                                                 <div class="d-flex justify-content-between align-items-start">
                                                     <div class="flex-grow-1">
                                                         <div class="d-flex align-items-center mb-2">
-                                                            <div class="gift-icon me-2" style="">
+                                                            <div class="gift-icon" style="">
                                                                 <div class="gift-circle">
                                                                     <img
                                                                         src="{{ asset($gift->gift->icon)}}"
@@ -127,24 +128,24 @@
                                                             </div>
                                                             <div class="p-name">
                                                                 <strong>{{ $gift->gift->name ?? 'Подарок' }}</strong>
-                                                                <span
-                                                                    class="badge {{ $gift->status_badge_class }} ms-2">
-                                                    {{ $gift->status_name }}
-                                                </span>
+
                                                                 <br>
                                                                 <small class="text-muted">
                                                                     для  {{ $gift->toUser->name }}
                                                                 </small>
                                                             </div>
                                                         </div>
-                                                        <div class="ms-4">
-                                                            <small class="text-muted">
-                                                                📅 {{ $gift->event->title }}
-                                                            </small>
-                                                            <br>
-                                                            <small class="text-muted">
-                                                                🕐 {{ $gift->created_at->format('d.m.Y H:i') }}
-                                                            </small>
+                                                        <div class="meta-list">
+                                                            <span class="m-calend">
+                                                                {{ $gift->event->title }}
+                                                            </span>
+                                                            <span class="m-date">
+                                                                {{ $gift->created_at->format('d.m.Y H:i') }}
+                                                            </span>
+                                                            <span
+                                                                class="badge {{ $gift->status_badge_class }}">
+                                                    {{ $gift->status_name }}
+                                                            </span>
 {{--                                                            @if($gift->message)--}}
 {{--                                                                <div--}}
 {{--                                                                    class="alert alert-light mt-2 mb-0 py-1 px-2 small">--}}
@@ -297,60 +298,11 @@
 
     @push('styles')
         <style>
-            .gift-item {
-                transition: all 0.2s ease;
-            }
 
-            .gift-item:hover {
-                background-color: #f8f9fa;
-                transform: translateX(3px);
-            }
 
-            .btn-group .btn {
-                transition: all 0.2s ease;
-            }
 
-            .btn-group .btn:hover {
-                transform: scale(1.05);
-            }
 
-            .gift-icon {
-                width: 60px;
-                height: 60px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-            }
 
-            /* Скроллбар */
-            .card-body::-webkit-scrollbar {
-                width: 6px;
-            }
-
-            .card-body::-webkit-scrollbar-track {
-                background: #f1f1f1;
-                border-radius: 10px;
-            }
-
-            .card-body::-webkit-scrollbar-thumb {
-                background: #28a745;
-                border-radius: 10px;
-            }
-
-            /* Скроллбар */
-            .card-body::-webkit-scrollbar {
-                width: 5px;
-            }
-
-            .card-body::-webkit-scrollbar-track {
-                background: #f1f1f1;
-                border-radius: 8px;
-            }
-
-            .card-body::-webkit-scrollbar-thumb {
-                background: #F6A23C;
-                border-radius: 8px;
-            }
 
             .card {
 
@@ -372,26 +324,9 @@
                 font-size: 16px;
             }
 
-            .p-name strong{
-                font-size: 16px;
-            }
 
-            .p-name strong small{
-                font-size: 14px;
-            }
 
-            .gift-circle {
-                width: 60px;
-                height: 60px;
-                background: linear-gradient(135deg, #fff0e0, #ffe0c0);
-                border-radius: 50%;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                font-size: 30px;
-                border: 2px solid #ffc107;
-                transition: all 0.2s;
-            }
+
 
 
         </style>

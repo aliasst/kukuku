@@ -47,8 +47,8 @@ class Wink extends Model
     {
         return match($this->status) {
             self::STATUS_PENDING => 'Ожидает',
-            self::STATUS_ACCEPTED => 'Подтверждено',
-            self::STATUS_IGNORED => 'Проигнорировано',
+            self::STATUS_ACCEPTED => 'Принято',
+            self::STATUS_IGNORED => 'Отклонено',
             default => 'Неизвестно',
         };
     }

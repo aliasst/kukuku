@@ -31,17 +31,17 @@
                                 <div class="card-body" style="max-height: 600px; overflow-y: auto;">
                                     @if($receivedWinks->count() > 0)
                                         @foreach($receivedWinks as $wink)
-                                            <div class="border-bottom pb-3 mb-3 wink-item"
+                                            <div class="wink-item"
                                                  data-wink-id="{{ $wink->id }}">
                                                 <div class="d-flex justify-content-between align-items-start">
                                                     <div class="flex-grow-1">
                                                         <div class="d-flex align-items-center mb-2">
-                                                            <div class="me-2">
+                                                            <div class="wink-icon">
                                                                 @if($wink->fromUser->profile && $wink->fromUser->profile->avatar)
                                                                     <img
                                                                         src="{{ Storage::url($wink->fromUser->profile->avatar) }}"
                                                                         class="rounded-circle"
-                                                                        style="width: 40px; height: 40px; object-fit: cover;">
+                                                                        style="object-fit: cover;">
                                                                 @else
 {{--                                                                    <div--}}
 {{--                                                                        class="rounded-circle bg-secondary text-white d-flex align-items-center justify-content-center"--}}
@@ -51,42 +51,47 @@
                                                                     <img
                                                                         src="{{ asset("/img/avatar.svg")}}"
                                                                         class="rounded-circle"
-                                                                        style="width: 50px; height: 50px; object-fit: cover;">
+                                                                        style="object-fit: cover;">
                                                                 @endif
+
+
+
                                                             </div>
                                                             <div class="p-name">
                                                                 <strong>{{ $wink->fromUser->name }}</strong>
-                                                                <span
-                                                                    class="badge {{ $wink->status_badge_class }} ms-2">
-                                                    {{ $wink->status_name }}
-                                                </span>
-                                                                <br>
-                                                                <small class="text-muted">
-                                                                    📅 {{ $wink->event->title }}
-                                                                </small>
                                                             </div>
+                                                            @if($wink->status === 'pending')
+                                                                <div class="btn-group">
+                                                                    <button class="accept-wink"
+                                                                            data-wink-id="{{ $wink->id }}"
+                                                                            title="Подтвердить">
+
+                                                                    </button>
+                                                                    <button class="ignore-wink"
+                                                                            data-wink-id="{{ $wink->id }}"
+                                                                            title="Игнорировать">
+
+                                                                    </button>
+                                                                </div>
+                                                            @endif
                                                         </div>
-                                                        <div class="ms-4">
-                                                            <small class="text-muted">
+                                                        <div class="meta-list">
+                                                            <span class="m-calend">
+                                                              {{ $wink->event->title }}
+                                                            </span>
+
+                                                            <span class="m-date">
                                                                 {{ $wink->created_at->format('d.m.Y H:i') }}
-                                                            </small>
+                                                            </span>
+
+                                                            <span
+                                                                class="badge {{ $wink->status_badge_class }} ">
+                                                    {{ $wink->status_name }}
+                                                            </span>
                                                         </div>
                                                     </div>
 
-                                                    @if($wink->status === 'pending')
-                                                        <div class="btn-group">
-                                                            <button class="btn btn-sm  accept-wink"
-                                                                    data-wink-id="{{ $wink->id }}"
-                                                                    title="Подтвердить">
-                                                                ✅
-                                                            </button>
-                                                            <button class="btn btn-sm ignore-wink"
-                                                                    data-wink-id="{{ $wink->id }}"
-                                                                    title="Игнорировать">
-                                                                ❌
-                                                            </button>
-                                                        </div>
-                                                    @endif
+
                                                 </div>
 
 {{--                                                @if($wink->isMutual())--}}
@@ -117,39 +122,41 @@
                                 <div class="card-body" style="max-height: 600px; overflow-y: auto;">
                                     @if($sentWinks->count() > 0)
                                         @foreach($sentWinks as $wink)
-                                            <div class="border-bottom pb-3 mb-3">
+                                            <div class="wink-sent-item">
                                                 <div class="d-flex justify-content-between align-items-start">
                                                     <div class="flex-grow-1">
                                                         <div class="d-flex align-items-center mb-2">
-                                                            <div class="me-2">
+                                                            <div class="wink-icon">
                                                                 @if($wink->toUser->profile && $wink->toUser->profile->avatar)
                                                                     <img
                                                                         src="{{ Storage::url($wink->toUser->profile->avatar) }}"
                                                                         class="rounded-circle"
-                                                                        style="width: 40px; height: 40px; object-fit: cover;">
+                                                                        style="object-fit: cover;">
                                                                 @else
                                                                     <img
                                                                         src="{{ asset("/img/avatar.svg")}}"
                                                                         class="rounded-circle"
-                                                                        style="width: 50px; height: 50px; object-fit: cover;">
+                                                                        style="object-fit: cover;">
                                                                 @endif
                                                             </div>
                                                             <div class="p-name">
                                                                 <strong>{{ $wink->toUser->name }}</strong>
-                                                                <span
-                                                                    class="badge {{ $wink->status_badge_class }} ms-2">
-                                                    {{ $wink->status_name }}
-                                                </span>
-                                                                <br>
-                                                                <small class="text-muted">
-                                                                    📅 {{ $wink->event->title }}
-                                                                </small>
+
+
+
                                                             </div>
                                                         </div>
-                                                        <div class="ms-4">
-                                                            <small class="text-muted">
+                                                        <div class="meta-list">
+                                                            <span class="m-calend">
+                                                                {{ $wink->event->title }}
+                                                            </span>
+                                                            <span class="m-date">
                                                                 {{ $wink->created_at->format('d.m.Y H:i') }}
-                                                            </small>
+                                                            </span>
+                                                            <span
+                                                                class="badge {{ $wink->status_badge_class }} ">
+                                                    {{ $wink->status_name }}
+                                                </span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -303,37 +310,8 @@
 
     @push('styles')
         <style>
-            .wink-item {
-                transition: all 0.2s ease;
-            }
 
-            .wink-item:hover {
-                background-color: #f8f9fa;
-                transform: translateX(3px);
-            }
 
-            .btn-group .btn {
-                transition: all 0.2s ease;
-            }
-
-            .btn-group .btn:hover {
-                transform: scale(1.05);
-            }
-
-            /* Скроллбар */
-            .card-body::-webkit-scrollbar {
-                width: 5px;
-            }
-
-            .card-body::-webkit-scrollbar-track {
-                background: #f1f1f1;
-                border-radius: 8px;
-            }
-
-            .card-body::-webkit-scrollbar-thumb {
-                background: #F6A23C;
-                border-radius: 8px;
-            }
 
             .card {
 
@@ -354,16 +332,6 @@
                 font-weight: 500;
                 font-size: 16px;
             }
-
-            .p-name strong{
-                font-size: 16px;
-            }
-
-            .p-name strong small{
-                font-size: 14px;
-            }
-
-
 
         </style>
     @endpush

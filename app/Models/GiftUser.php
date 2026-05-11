@@ -49,7 +49,7 @@ class GiftUser extends Model
     public function getStatusNameAttribute()
     {
         return match($this->status) {
-            self::STATUS_PENDING => 'Ожидает получения',
+            self::STATUS_PENDING => 'Ожидает',
             self::STATUS_ACCEPTED => 'Получен',
             self::STATUS_IGNORED => 'Отклонён',
             default => 'Неизвестно',
