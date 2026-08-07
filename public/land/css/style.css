@@ -1,0 +1,1343 @@
+/* ===== RESET & BASE ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background: #FAEBE1;
+    color: #121112;
+    line-height: 1.5;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+.container {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 40px;
+}
+
+/* ===== BUTTONS ===== */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    border-radius: 32px;
+    padding: 12px 32px;
+    transition: background 0.2s, box-shadow 0.2s;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    white-space: nowrap;
+}
+
+.btn--primary {
+    background: #FB4D1C;
+    color: #fff;
+}
+.btn--primary:hover {
+    background: #e03e0f;
+    box-shadow: 0 4px 14px rgba(251, 77, 28, 0.3);
+}
+
+.btn--outline {
+    background: transparent;
+    color: #2B2B2B;
+    border: 2px solid rgba(251, 77, 28, 0.5);
+}
+.btn--outline:hover {
+    background: rgba(251, 77, 28, 0.05);
+}
+
+.btn--large {
+    padding: 16px 40px;
+    font-size: 20px;
+    border-radius: 40px;
+}
+
+.btn--block {
+    width: 100%;
+    padding: 14px;
+    border-radius: 24px;
+}
+
+.btn__icon {
+    margin-right: 10px;
+    font-size: 24px;
+}
+
+.btn--header {
+    padding: 10px 28px;
+    border-radius: 28px;
+    font-size: 16px;
+}
+
+/* ===== HEADER ===== */
+.header {
+    padding: 20px 0;
+    background: #FAEBE1;
+}
+
+.header__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.logo {
+    font-family: 'Gugi', cursive;
+    font-size: 42px;
+    color: #000;
+    font-weight: 400;
+    line-height: 1.2;
+}
+
+.nav__list {
+    display: flex;
+    list-style: none;
+    gap: 60px;
+    font-weight: 500;
+    font-size: 18px;
+    color: #2E2E2E;
+    background: rgba(250, 237, 229, 0.2);
+    padding: 20px 70px;
+    border-radius: 96px;
+    background: url("../img/menu.png") no-repeat center center;
+    background-size: cover;
+}
+.nav__list a:hover {
+    color: #FB4D1C;
+}
+
+.nav__list li {
+    position: relative;
+}
+
+.nav__list li:after {
+    content:'';
+    display: block;
+    width: 1px;
+    height: 27px;
+    background: url("../img/icons/line.svg");
+    background-size: cover;
+    position: absolute;
+    right: -30px;
+    top:0px;
+}
+
+.nav__list li:last-child:after {
+    display: none;
+
+}
+
+.mobile-nav-item {
+    display: none;
+}
+
+.burger-btn {
+    display: none; /* по умолчанию скрыт */
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: #FB4D1C;
+    border: none;
+    cursor: pointer;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    padding: 0;
+    transition: background 0.3s;
+    flex-shrink: 0;
+}
+.burger-btn:hover {
+    background: #e03e0f;
+}
+.burger-line {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: #fff;
+    border-radius: 2px;
+    transition: transform 0.3s, opacity 0.3s;
+    transform-origin: center;
+}
+.burger-btn.open .burger-line:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+}
+.burger-btn.open .burger-line:nth-child(2) {
+    opacity: 0;
+}
+.burger-btn.open .burger-line:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+}
+
+/* ===== HERO ===== */
+.hero {
+    padding: 40px 0 80px;
+    background-image: url("../img/hero.png");
+    background-repeat:no-repeat;
+    background-position-y: center;
+    background-position-x: 100%;
+    background-size: 75%;
+}
+
+.hero__inner {
+    display: flex;
+    align-items: flex-start;
+    gap: 40px;
+    flex-wrap: wrap;
+}
+
+.hero__content {
+    flex: 1 1 53%;
+    min-width: 300px;
+}
+
+.hero__image {
+    flex: 1 1 40%;
+    min-width: 280px;
+}
+.hero__image img {
+    border-radius: 30px;
+    width: 100%;
+    height: auto;
+}
+
+.hero__badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    font-weight: 600;
+    font-size: 18px;
+    color: #FB501C;
+    background: rgba(251, 132, 28, 0.08);
+    padding: 10px 24px;
+    border-radius: 50px;
+    border: 1.5px solid #FB841C;
+    margin-bottom: 28px;
+}
+.hero__badge-dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    background: #FB501C;
+    border-radius: 50%;
+}
+
+.hero__title {
+    font-size: clamp(48px, 10vw, 88px);
+    font-weight: 800;
+    line-height: 1.15;
+    margin-bottom: 20px;
+}
+.hero__title-highlight {
+    background: linear-gradient(180deg, #FD7E0D 25%, #FC3E1A 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    display: block;
+}
+
+.hero__desc {
+    font-size: clamp(18px, 2.5vw, 23px);
+    font-weight: 500;
+    color: #686668;
+    max-width: 630px;
+    margin-bottom: 40px;
+    line-height: 1.7;
+}
+
+.hero__info {
+    display: flex;
+    align-items: stretch;
+    gap: 20px 30px;
+    background: rgba(251, 238, 229, 0.4);
+    backdrop-filter: blur(4px);
+    border-radius: 26px;
+    padding: 20px 30px;
+    box-shadow: 0 0 32px rgba(253, 126, 13, 0.15);
+    margin-bottom: 40px;
+}
+
+.hero__info-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.hero__info-icon {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.hero__info-label {
+    font-weight: 600;
+    font-size: 17px;
+    color: #2B2B2B;
+    display: block;
+}
+.hero__info-sub {
+    font-weight: 500;
+    font-size: 15px;
+    color: #686668;
+}
+
+.hero__info-divider {
+    width: 2px;
+    background: #ddd;
+    align-self: stretch;
+}
+
+.hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+/* ===== SECTION COMMON ===== */
+.section-tag {
+    font-weight: 700;
+    font-size: 20px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #FB4D1C;
+    display: block;
+    margin-bottom: 8px;
+}
+
+.section-tag--center {
+    text-align: center;
+}
+
+.section-title {
+    font-size: clamp(36px, 6vw, 72px);
+    font-weight: 800;
+    line-height: 1.2;
+    margin-bottom: 16px;
+}
+
+.section-title--center {
+    text-align: center;
+}
+
+.gradient-text {
+    background: linear-gradient(180deg, #FD7E0D 25%, #FC3E1A 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* ===== EXPERIENCE ===== */
+.experience {
+    padding: 80px 0;
+}
+
+.experience__inner {
+    display: flex;
+    align-items: center;
+    gap: 60px;
+    flex-wrap: wrap;
+}
+
+.experience__visual {
+    flex: 1 1 45%;
+    min-width: 300px;
+}
+.experience__visual img {
+    border-radius: 30px;
+    width: 100%;
+    height: auto;
+}
+
+.experience__content {
+    flex: 1 1 45%;
+    min-width: 300px;
+}
+
+.experience__desc {
+    font-size: 20px;
+    font-weight: 500;
+    color: #686668;
+    line-height: 1.7;
+    margin-bottom: 27px;
+}
+
+.experience__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 24px;
+}
+
+.experience__tag {
+    background: rgba(253, 106, 17, 0.1);
+    border: 1px solid rgba(253, 106, 17, 0.3);
+    border-radius: 50px;
+    padding: 6px 20px;
+    font-weight: 600;
+    font-size: 18px;
+    color: #FD6A11;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+/* ===== MUSIC ===== */
+.music {
+    padding: 40px 0 80px;
+}
+
+.music__inner {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+}
+
+.music__card {
+    flex: 1 1 280px;
+    max-width: 470px;
+    background: rgba(251, 238, 229, 0.3);
+    backdrop-filter: blur(4px);
+    border-radius: 30px;
+    padding: 15px 20px;
+    box-shadow: 0 0 35px rgba(253, 126, 13, 0.15);
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.music__card-art {
+    flex-shrink: 0;
+    width: 101px;
+    height: 101px;
+    border-radius: 14px;
+    overflow: hidden;
+}
+.music__card-art img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.music__card-body {
+    flex: 1;
+}
+
+.music__card-title {
+    font-weight: 600;
+    font-size: 16px;
+    color: #2B2B2B;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.music__card-play {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.music__play-btn {
+    display: inline-block;
+    width: 37px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+.music__play-btn:hover {
+    background: #e03e0f;
+}
+
+.music__play-label {
+    font-weight: 600;
+    font-size: 16px;
+    color: #2B2B2B;
+    cursor: pointer;
+}
+
+/* ===== TECHNOLOGY ===== */
+.technology {
+    padding: 80px 0 60px;
+    background: url(../img/technology_bg.png) no-repeat center center;
+    background-size: cover;
+}
+
+.technology__subtitle {
+    text-align: center;
+    font-size: 22px;
+    font-weight: 500;
+    color: #686668;
+    margin-bottom: 60px;
+}
+
+.technology__cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    justify-content: center;
+}
+
+.technology__card {
+    flex: 1 1 280px;
+    max-width: 380px;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 30px;
+    padding: 30px 20px 40px;
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.65);
+}
+
+.technology__card-icon {
+    margin-bottom: 30px;
+
+}
+.technology__card-icon img {
+    width: auto;
+    max-width: 280px;
+    max-height: 240px;
+    margin: 0 auto;
+    position: relative;
+    margin-top: -40px;
+}
+
+.technology__card-title {
+    font-size: 30px;
+    font-weight: 800;
+    color: #121112;
+    margin-bottom: 16px;
+}
+
+.technology__card-desc {
+    font-size: 17px;
+    font-weight: 500;
+    color: #686668;
+    line-height: 1.7;
+    max-width: 308px;
+    margin: 0 auto;
+}
+
+/* ===== TICKETS ===== */
+.tickets {
+    padding: 80px 0 60px;
+}
+
+.tickets__subtitle {
+    text-align: center;
+    font-size: 22px;
+    font-weight: 500;
+    color: #686668;
+    margin-bottom: 50px;
+}
+
+.tickets__grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    justify-content: center;
+}
+
+.tickets__card {
+    flex: 1 1 280px;
+    max-width: 380px;
+    background: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.05);
+    border-radius: 30px;
+    padding: 20px 20px 30px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.tickets__card-image {
+    margin-top: -10px;
+    margin-bottom: 20px;
+}
+.tickets__card-image img {
+    width: auto;
+    max-width: 280px;
+    max-height: 140px;
+
+    margin: 0 auto;
+}
+
+.tickets__card-title {
+    font-size: 30px;
+    font-weight: 800;
+    color: #121112;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+}
+
+.tickets__card-price {
+    font-size: 65px;
+    font-weight: 700;
+    color: #FD6A11;
+    margin-bottom: 20px;
+}
+
+.tickets__card-features {
+    list-style: none;
+    text-align: left;
+    margin: 0 auto 30px;
+    padding: 0;
+    max-width: 260px;
+    width: 100%;
+}
+
+.tickets__card-features li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 17px;
+    font-weight: 500;
+    color: #686668;
+    padding: 6px 0;
+}
+.tickets__card-features li::before {
+    content: "✓";
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 27px;
+    height: 27px;
+    background: #FD6A11;
+    border-radius: 50%;
+    color: #fff;
+    font-weight: 700;
+    flex-shrink: 0;
+}
+
+.tickets__card .btn {
+    margin-top: auto;
+}
+
+/* ===== FOOTER ===== */
+.footer {
+    padding: 60px 0 40px;
+    border-top: 1px solid rgba(0,0,0,0.05);
+    margin-top: 40px;
+}
+
+.footer__inner {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 30px;
+}
+
+.footer__logo {
+    font-family: 'Gugi', cursive;
+    font-size: 42px;
+    color: #000;
+}
+
+.footer__info {
+    font-size: 18px;
+    font-weight: 500;
+    color: #4E4E4E;
+    text-align: right;
+    line-height: 1.7;
+}
+
+
+
+
+/* ============================================
+   АДАПТИВНЫЕ МЕДИАЗАПРОСЫ (дописаны в конец)
+   ============================================ */
+
+/* Планшеты и небольшие ноутбуки */
+@media (max-width: 1480px) {
+
+    .hero {
+        background-size: 76%;
+    }
+}
+
+@media (max-width: 1390px) {
+    .hero__content {
+        flex: 1 1 55%;
+    }
+
+    .hero {
+        background-size: 70%;
+    }
+
+    .hero__info {
+        gap: 15px 20px;
+        border-radius: 20px;
+        padding: 20px 25px;
+    }
+}
+
+
+
+@media (max-width: 1200px) {
+    .container {
+        padding: 0 30px;
+    }
+
+    .hero {
+        background: url("../img/hero2.png");
+        background-repeat:no-repeat;
+        background-position-x: 110%;
+        background-position-y:bottom;
+        padding-bottom: 800px;
+    }
+
+    .hero__content {
+        flex: 1 1 67%;
+    }
+
+    .hero__image {
+        flex: 1 1 20%;
+    }
+
+    .experience__inner {
+        gap: 40px;
+    }
+
+    .tickets__card {
+        max-width: 340px;
+    }
+}
+
+/* Планшеты (вертикальная ориентация) */
+@media (max-width: 992px) {
+    .header__inner {
+
+
+    }
+
+    .nav__list {
+        gap: 28px;
+        font-size: 16px;
+    }
+
+    .hero {
+
+    }
+
+    .hero__inner {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .hero__content {
+        flex: 1 1 100%;
+        min-width: unset;
+        width: 100%;
+    }
+
+    .hero__image {
+        flex: 1 1 100%;
+        width: 100%;
+        min-width: unset;
+        margin-top: 20px;
+    }
+
+    .hero__image img {
+        width: 100%;
+        height: auto;
+        border-radius: 30px;
+    }
+
+    .hero__desc {
+        max-width: 100%;
+    }
+
+    .hero__info {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 16px 20px;
+        padding: 16px 20px;
+    }
+
+    .hero__info-divider {
+        display: none; /* убираем разделители на планшетах */
+    }
+
+    .experience__inner {
+        flex-direction: column;
+        gap: 30px;
+    }
+
+    .experience__visual,
+    .experience__content {
+        flex: 1 1 100%;
+        min-width: unset;
+        width: 100%;
+    }
+
+    .experience__visual img {
+        width: 100%;
+        height: auto;
+    }
+
+    .experience__content {
+        order:0;
+        margin-bottom: 40px;
+    }
+
+    .experience__visual {
+        order:1;
+    }
+
+    .music__inner {
+        gap: 20px;
+    }
+
+    .music__card {
+        max-width: 100%;
+        flex: 1 1 100%;
+    }
+
+    .technology__cards {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .technology__card {
+        max-width: 400px;
+        width: 100%;
+    }
+
+    .tickets__grid {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .tickets__card {
+        max-width: 400px;
+        width: 100%;
+    }
+
+    .footer__inner {
+        flex-direction: column;
+        text-align: center;
+        gap: 20px;
+    }
+
+    .footer__info {
+        text-align: center;
+    }
+}
+
+
+
+
+/* Мобильные устройства (ширина до 768px) */
+@media (max-width: 768px) {
+
+    .header__inner {
+        position: relative;
+    }
+
+    .burger-btn {
+        display: flex; /* показываем бургер */
+    }
+    /* Скрываем десктопную кнопку (вне меню) */
+    .header__inner > .btn--header {
+        display: none;
+    }
+    /* Навигацию делаем выпадающей */
+    .nav {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: #FAEBE1;
+        padding: 20px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        border-radius: 0 0 20px 20px;
+        display: none; /* скрыта по умолчанию */
+        flex-direction: column;
+        gap: 20px;
+        z-index: 1000;
+    }
+    .nav.open {
+        display: flex;
+    }
+    .nav__list {
+        flex-direction: column;
+        gap: 16px;
+        background: none;
+        padding: 0;
+        border-radius: 0;
+        width: 100%;
+    }
+    .nav__list li {
+        width: 100%;
+    }
+    .nav__list li:after {
+        display: none;
+    }
+    .nav__list a {
+        font-size: 20px;
+        padding: 8px 0;
+        border-bottom: 1px solid rgba(0,0,0,0.05);
+        display: block;
+    }
+    .mobile-nav-item {
+        display: block;
+        margin-top: 10px;
+    }
+    .mobile-nav-item .btn {
+        width: 100%;
+        justify-content: center;
+        text-align: center;
+        font-size: 15px;
+        padding: 12px 16px;
+    }
+
+
+
+    .container {
+        padding: 0 20px;
+    }
+
+    .header {
+        padding: 14px 0;
+    }
+
+    .logo {
+
+    }
+
+    .nav__list {
+        gap: 16px;
+        font-size: 15px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .btn--header {
+        padding: 8px 18px;
+        font-size: 14px;
+    }
+
+    .hero {
+        padding-top:20px;
+        background-size: 700px;
+        padding-bottom: 500px;
+    }
+
+    .hero__title {
+        font-size: clamp(34px, 12vw, 48px);
+    }
+
+    .hero__desc {
+        font-size: 17px;
+        margin-bottom: 28px;
+    }
+
+    .hero__badge {
+        font-size: 14px;
+        padding: 6px 16px;
+        gap: 8px;
+        margin-bottom: 20px;
+    }
+
+    .hero__badge-icon img {
+        width: 18px;
+        height: 18px;
+    }
+
+    .hero__info {
+        flex-wrap: nowrap;
+        gap: 10px;
+        padding: 16px;
+        margin-bottom: 28px;
+    }
+
+    .hero__info-item {
+        width: auto;
+        justify-content: flex-start;
+    }
+
+    .hero__info-icon {
+        width: 40px;
+        height: 40px;
+    }
+
+    .hero__info-icon img {
+        max-width: 32px;
+        max-height: 32px;
+    }
+
+    .hero__info-label {
+        font-size: 15px;
+    }
+    .hero__info-sub {
+        font-size: 13px;
+    }
+
+    .hero__actions {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+    }
+
+    .btn--large {
+        padding: 14px 20px;
+        font-size: 17px;
+        border-radius: 30px;
+        justify-content: center;
+    }
+
+    .btn__icon img {
+        width: 22px;
+        height: 22px;
+    }
+
+    .section-tag {
+        font-size: 16px;
+    }
+
+    .section-title {
+        font-size: clamp(28px, 8vw, 38px);
+    }
+
+    .experience {
+        padding: 40px 0;
+    }
+
+    .experience__desc {
+        font-size: 17px;
+        margin-bottom: 18px;
+    }
+
+    .experience__tags {
+        gap: 8px;
+    }
+
+    .experience__tag {
+        font-size: 15px;
+        padding: 4px 14px;
+    }
+
+    .experience__icon img {
+        width: 18px;
+        height: 18px;
+    }
+
+    .music {
+        padding: 20px 0 40px;
+    }
+
+    .music__card {
+        padding: 12px 16px;
+        gap: 14px;
+        border-radius: 20px;
+    }
+
+    .music__card-art {
+        width: 70px;
+        height: 70px;
+        flex-shrink: 0;
+    }
+
+    .music__card-title {
+        font-size: 14px;
+    }
+
+    .music__play-btn img {
+        width: 28px;
+        height: 28px;
+    }
+
+    .music__play-label {
+        font-size: 14px;
+    }
+
+    .technology {
+        padding: 40px 0 30px;
+        background-size: cover;
+        background-position: center;
+    }
+
+    .technology__subtitle {
+        font-size: 18px;
+        margin-bottom: 30px;
+    }
+
+    .technology__card {
+        padding: 20px 16px 30px;
+    }
+
+    .technology__card-icon img {
+        max-width: 200px;
+        max-height: 160px;
+        margin-top: -20px;
+    }
+
+    .technology__card-title {
+        font-size: 24px;
+    }
+
+    .technology__card-desc {
+        font-size: 15px;
+        max-width: 100%;
+    }
+
+    .tickets {
+        padding: 40px 0 30px;
+    }
+
+    .tickets__subtitle {
+        font-size: 18px;
+        margin-bottom: 30px;
+    }
+
+    .tickets__card {
+        padding: 16px 16px 24px;
+        border-radius: 24px;
+    }
+
+    .tickets__card-image img {
+        max-width: 180px;
+        max-height: 100px;
+    }
+
+    .tickets__card-title {
+        font-size: 24px;
+    }
+
+    .tickets__card-price {
+        font-size: 44px;
+        margin-bottom: 14px;
+    }
+
+    .tickets__card-features {
+        max-width: 100%;
+        margin-bottom: 20px;
+    }
+
+    .tickets__card-features li {
+        font-size: 15px;
+        padding: 4px 0;
+        gap: 10px;
+    }
+
+    .tickets__card-features li::before {
+        width: 22px;
+        height: 22px;
+        font-size: 14px;
+    }
+
+    .tickets__card .btn {
+        font-size: 16px;
+        padding: 12px;
+    }
+
+    .footer {
+        padding: 30px 0 20px;
+        margin-top: 20px;
+    }
+
+    .footer__logo {
+        font-size: 32px;
+    }
+
+    .footer__info {
+        font-size: 15px;
+        line-height: 1.6;
+    }
+}
+
+
+@media (max-width: 540px) {
+    .hero__info {
+        flex-wrap: nowrap;
+        gap: 7px;
+        padding: 12px 10px;
+        margin-bottom: 28px;
+
+    }
+
+    .hero__info-label {
+        font-size: 12px;
+    }
+
+    .hero__info-sub {
+        font-size: 11px;
+    }
+
+    .hero {
+        padding-top: 20px;
+        background: url(../img/hero3.png);
+        background-repeat: no-repeat;
+        background-position-x: 110%;
+        background-position-y: bottom;
+        background-size: 430px;
+        padding-bottom: 280px;
+    }
+
+}
+
+/* Очень маленькие экраны (до 480px) */
+@media (max-width: 480px) {
+    .container {
+        padding: 0 14px;
+    }
+
+    .logo {
+
+    }
+
+    .nav__list {
+        gap: 12px;
+        font-size: 13px;
+    }
+
+    .btn--header {
+        padding: 6px 14px;
+        font-size: 12px;
+        border-radius: 20px;
+    }
+
+    .hero {
+        padding-top: 20px;
+        background: url(../img/hero3.png);
+        background-repeat: no-repeat;
+        background-position-x: 110%;
+        background-position-y: bottom;
+        background-size: 370px;
+        padding-bottom: 240px;
+    }
+
+    .hero__title {
+        font-size: clamp(28px, 10vw, 36px);
+    }
+
+    .hero__desc {
+        font-size: 15px;
+        line-height: 1.5;
+    }
+
+    .hero__badge {
+        font-size: 12px;
+        padding: 4px 12px;
+    }
+
+    .hero__info {
+        padding: 7px;
+        column-gap: 30px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .hero__info-icon {
+        width: 24px;
+        height: 24px;
+    }
+
+    .hero__info-icon img {
+        max-width: 24px;
+        max-height: 24px;
+    }
+
+    .hero__info-label {
+        font-size: 13px;
+    }
+    .hero__info-sub {
+        font-size: 12px;
+    }
+
+    .btn--large {
+        font-size: 15px;
+        padding: 12px 16px;
+    }
+
+    .section-title {
+        font-size: clamp(24px, 6vw, 30px);
+    }
+
+    .experience__desc {
+        font-size: 15px;
+    }
+
+    .experience__tag {
+        font-size: 13px;
+        padding: 4px 10px;
+    }
+
+    .music__card {
+        padding: 10px 12px;
+        gap: 10px;
+    }
+
+    .music__card-art {
+        width: 56px;
+        height: 56px;
+    }
+
+    .music__card-title {
+        font-size: 12px;
+    }
+
+    .music__play-btn img {
+        width: 22px;
+        height: 22px;
+    }
+
+    .music__play-label {
+        font-size: 12px;
+    }
+
+    .technology__card-title {
+        font-size: 20px;
+    }
+
+    .technology__card-desc {
+        font-size: 14px;
+    }
+
+    .tickets__card-title {
+        font-size: 20px;
+    }
+
+    .tickets__card-price {
+        font-size: 36px;
+    }
+
+    .tickets__card-features li {
+        font-size: 13px;
+    }
+
+    .tickets__card-features li::before {
+        width: 18px;
+        height: 18px;
+        font-size: 12px;
+    }
+
+    .tickets__card .btn {
+        font-size: 14px;
+        padding: 10px;
+    }
+
+    .footer__logo {
+        font-size: 26px;
+    }
+
+    .footer__info {
+        font-size: 13px;
+    }
+}
