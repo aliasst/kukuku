@@ -16,12 +16,12 @@ class ProfileFactory extends Factory
 
         return [
             'user_id' => User::factory(),
-            'full_name' => fake('ru_RU')->name(),
-            'birth_date' => fake()->dateTimeBetween('-60 years', '-18 years'),
-            'gender' => fake()->randomElement($genders),
-            'phone' => fake()->phoneNumber(),
-            'telegram' => '@' . fake()->userName(),
-            'visit_purpose' => fake()->randomElement([
+            'full_name' => $this->faker->name(),
+            'birth_date' => $this->faker->dateTimeBetween('-60 years', '-18 years'),
+            'gender' => $this->faker->randomElement($genders),
+            'phone' => $this->faker->phoneNumber(),
+            'telegram' => '@' . $this->faker->userName(),
+            'visit_purpose' => $this->faker->randomElement([
                 'Хочу участвовать в мероприятиях',
                 'Поиск новых знакомств',
                 'Профессиональное развитие',
@@ -30,7 +30,7 @@ class ProfileFactory extends Factory
                 'Нет цели, просто интересно'
             ]),
             'avatar' => null,
-            'created_at' => fake()->dateTimeBetween('-1 year', 'now'),
+            'created_at' => $this->faker->dateTimeBetween('-1 year', 'now'),
             'updated_at' => now(),
         ];
     }
