@@ -45,8 +45,12 @@ Route::get('/admin', function () {
 });
 
 Route::get('/', function () {
-    return view('home');
+    return view('home-new');
 })->name('home');
+
+Route::get('/land', function () {
+    return view('home');
+})->name('home-old');
 
 
 // Гостевые маршруты (только для неавторизованных)
