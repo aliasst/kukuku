@@ -461,7 +461,7 @@ img {
     transition: background 0.2s;
 }
 .music__play-btn:hover {
-    background: #e03e0f;
+
 }
 
 .music__play-label {
@@ -1340,4 +1340,44 @@ img {
     .footer__info {
         font-size: 13px;
     }
+}
+
+
+/* Иконки play/pause внутри кнопки */
+.music__play-btn {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.music__play-btn .music__icon {
+    width: 37px;
+    height: 37px;
+    object-fit: contain;
+    transition: opacity 0.15s;
+}
+
+/* По умолчанию показываем play, pause скрыт */
+.music__play-btn .music__icon--pause {
+    display: none;
+}
+
+/* Когда трек играет — показываем pause, скрываем play */
+.music__card.playing .music__icon--play {
+    display: none;
+}
+.music__card.playing .music__icon--pause {
+    display: inline-block;
+}
+
+/* Курсор-рука и небольшая анимация */
+.music__play-btn,
+.music__play-label {
+    cursor: pointer;
+    user-select: none;
+}
+
+.music__card.playing .music__play-label {
+    color: #FB4D1C;
 }

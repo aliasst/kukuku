@@ -4,6 +4,24 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@yield('title')</title>
+    <meta name="description" content="KuKu'Ku is where the night comes alive in Dubai. Dance to unique beats, meet incredible people, and stay connected through our AI-powered web app + QR. Limited capacity — get your ticket now!" />
+    <meta name="keywords" content="KuKu'Ku, Dubai party, dance party Dubai, AI matching party, QR connect event, Dubai nightlife, meet people Dubai, Dubai Marina beach club, Dance Connect Keep the Vibe, KuKu'Ku Dubai tickets, AI Heart Matching, party with AI Dubai" />
+    <meta name="author" content="KuKu'Ku / Ku Events" />
+    <meta name="robots" content="index, follow" />
+
+    <!-- ===== Open Graph (для соцсетей) ===== -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="KuKu'Ku — Dance, Connect & Keep the Vibe in Dubai" />
+    <meta property="og:description" content="Dance to unique beats, meet incredible people, and stay connected through our AI-powered web app + QR. Dubai Marina Beach Club · August 29, 2026." />
+{{--    <meta property="og:image" content="img/hero.png" />--}}
+    <meta property="og:locale" content="en_US" />
+
+    <!-- ===== Twitter Card ===== -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="KuKu'Ku — Dance, Connect & Keep the Vibe in Dubai" />
+    <meta name="twitter:description" content="Dance to unique beats, meet incredible people, and stay connected through our AI-powered web app + QR." />
+{{--    <meta name="twitter:image" content="img/hero.png" />--}}
+
     <link rel="stylesheet" href="{{ asset('land-assets/css/fonts.css') }}" />
     <link rel="stylesheet" href="{{ asset('land-assets/css/style.css') }}" />
 </head>
@@ -42,9 +60,8 @@
         <div class="footer__logo">KuKu’Ku</div>
         <div class="footer__info">
             <p>
-                ©2026 KuKu’Ku / Ku Events (Ideas Stream Digital Marketing)<br />
-                e-Trader License • Trade Name<br />
-                Dubai Marina Beach Club • August 29, 2026 • 75–120 guests<br />
+                ©2026 KuKu’Ku Events <br>
+                Dubai Marina Beach Club • October 17, 2026 • 75–120 guests <br>
                 Made with ❤️ in Dubai
             </p>
         </div>

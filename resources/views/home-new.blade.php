@@ -1,6 +1,6 @@
 @extends('layouts.app-new')
 
-@section('title', "KuKu'Ku — Dance. Connect. Keep the Vibe")
+@section('title', "KuKu'Ku — Dance, Connect & Keep the Vibe in Dubai | AI-Powered Party")
 
 @section('content')
 
@@ -12,7 +12,7 @@
                 <span class="hero__badge-icon">
                         <img src="{{ asset('land-assets/img/icons/calend.png') }}" alt="">
                     </span>
-                    DUBAI <span class="hero__badge-dot"></span> August 29, 2026
+                    DUBAI <span class="hero__badge-dot"></span> October 17, 2026
                 </div>
 
                 <h1 class="hero__title">
@@ -20,9 +20,9 @@
                     <span class="hero__title-highlight">Keep the Vibe</span>
                 </h1>
 
-                <p class="hero__desc">
+                <h2 class="hero__desc">
                     A place to dance, meet new people, and spark real connections — all powered by our unique web app + qr.
-                </p>
+                </h2>
 
                 <div class="hero__info">
                     <div class="hero__info-item hero__info-item--date">
@@ -30,7 +30,7 @@
                         <img src="{{ asset('land-assets/img/icons/info-icon_1.png') }}" alt="">
                     </span>
                         <div>
-                            <span class="hero__info-label">August 29, 2026</span>
+                            <span class="hero__info-label">October 17, 2026</span>
                             <span class="hero__info-sub">Saturday</span>
                         </div>
                     </div>
@@ -94,7 +94,7 @@
 
                 <div class="experience__tags">
                     <span class="experience__tag"><span class="experience__icon"> <img src="{{ asset('land-assets/img/icons/experience_1.svg') }}" alt=""></span>DJ</span>
-                    <span class="experience__tag"><span class="experience__icon"> <img src="{{ asset('land-assets/img/icons/experience_2.svg') }}" alt=""></span>FunkaFunka Tracks</span>
+                    <a target="_blank" href="https://music.apple.com/ru/artist/funkafunka/6791572586" class="experience__tag"><span class="experience__icon"> <img src="{{ asset('land-assets/img/icons/experience_2.svg') }}" alt=""></span>FunkaFunka Tracks</a>
                     <span class="experience__tag"><span class="experience__icon"> <img src="{{ asset('land-assets/img/icons/experience_3.svg') }}" alt=""></span>Live Vocals</span>
                     <span class="experience__tag"><span class="experience__icon"> <img src="{{ asset('land-assets/img/icons/experience_4.svg') }}" alt=""></span>App &amp; QR Codes</span>
                     <span class="experience__tag"><span class="experience__icon"> <img src="{{ asset('land-assets/img/icons/experience_5.svg') }}" alt=""></span>AI Heart Matching</span>
@@ -106,46 +106,56 @@
     <!-- ===== MUSIC CARDS ===== -->
     <section class="music">
         <div class="container music__inner">
-            <div class="music__card">
+            <div class="music__card" data-audio="{{ asset('land-assets/music/Dancing_With_Tomorrow.mp3') }}">
                 <div class="music__card-art">
                     <img src="{{ asset('land-assets/img/icons/mus_1.png') }}" alt="Dancing With Tomorrow" />
                 </div>
                 <div class="music__card-body">
                     <span class="music__card-title">Dancing With Tomorrow - Single</span>
                     <div class="music__card-play">
-                        <span class="music__play-btn"> <img src="{{ asset('land-assets/img/icons/play.png') }}" alt="Dancing With Tomorrow" /></span>
+                    <span class="music__play-btn">
+                        <img class="music__icon music__icon--play" src="{{ asset('land-assets/img/icons/play.png') }}" alt="Play" />
+                        <img class="music__icon music__icon--pause" src="{{ asset('land-assets/img/icons/pause.svg') }}" alt="Pause" />
+                    </span>
                         <span class="music__play-label">Play Music</span>
                     </div>
                 </div>
             </div>
 
-            <div class="music__card">
+            <div class="music__card" data-audio="{{ asset('land-assets/music/summer_shine.wav') }}">
                 <div class="music__card-art">
-                    <img src="{{ asset('land-assets/img/icons/mus_2.png') }}" alt="Dancing With Tomorrow" />
+                    <img src="{{ asset('land-assets/img/icons/mus_2.png') }}" alt="Summer Shine" />
                 </div>
                 <div class="music__card-body">
                     <span class="music__card-title">Summer Shine - Single</span>
                     <div class="music__card-play">
-                        <span class="music__play-btn"> <img src="{{ asset('land-assets/img/icons/play.png') }}" alt="Dancing With Tomorrow" /></span>
+                    <span class="music__play-btn">
+                        <img class="music__icon music__icon--play" src="{{ asset('land-assets/img/icons/play.png') }}" alt="Play" />
+                        <img class="music__icon music__icon--pause" src="{{ asset('land-assets/img/icons/pause.svg') }}" alt="Pause" />
+                    </span>
                         <span class="music__play-label">Play Music</span>
                     </div>
                 </div>
             </div>
 
-            <div class="music__card">
+            <div class="music__card" data-audio="{{ asset('land-assets/music/Sunshine_and_Soul.mp3') }}">
                 <div class="music__card-art">
-                    <img src="{{ asset('land-assets/img/icons/mus_3.png') }}" alt="Dancing With Tomorrow" />
+                    <img src="{{ asset('land-assets/img/icons/mus_3.png') }}" alt="Sunshine and Soul" />
                 </div>
                 <div class="music__card-body">
                     <span class="music__card-title">Sunshine and Soul - FunkaFunka</span>
                     <div class="music__card-play">
-                        <span class="music__play-btn"> <img src="{{ asset('land-assets/img/icons/play.png') }}" alt="Dancing With Tomorrow" /></span>
+                    <span class="music__play-btn">
+                        <img class="music__icon music__icon--play" src="{{ asset('land-assets/img/icons/play.png') }}" alt="Play" />
+                        <img class="music__icon music__icon--pause" src="{{ asset('land-assets/img/icons/pause.svg') }}" alt="Pause" />
+                    </span>
                         <span class="music__play-label">Play Music</span>
                     </div>
                 </div>
             </div>
         </div>
     </section>
+
 
     <!-- ===== TECHNOLOGY ===== -->
     <section class="technology" id="technology">
