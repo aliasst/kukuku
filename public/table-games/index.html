@@ -1,0 +1,590 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#FAEBE1">
+<title>KuKu'Ku Table</title>
+<meta name="description" content="Games for strangers at one café table: our own music, Truth or myth?, drawing and new friends. Your first table is free.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gugi&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* Layout: kukuku.club language — warm sand ground, white rounded cards, one orange accent, devices as the hero image */
+:root {
+  --bg: #FAEBE1;
+  --card: #FFFFFF;
+  --ink: #121112;
+  --ink-2: #2B2B2B;
+  --muted: #686668;
+  --line: rgba(18, 17, 18, .10);
+  --accent: #FB4D1C;
+  --accent-hover: #E03E0F;
+  --accent-soft: rgba(251, 77, 28, .08);
+  --badge: #FB501C;
+  --badge-line: #FB841C;
+  --grad: linear-gradient(180deg, #FD7E0D 25%, #FC3E1A 100%);
+  --grad-diag: linear-gradient(135deg, #FD7E0D 0%, #FC3E1A 100%);
+  --device: #1C1A1C;
+  --font-body: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-logo: 'Gugi', 'Inter', system-ui, sans-serif;
+  --r-card: 30px;
+  --r-mid: 20px;
+  --shadow: 0 14px 40px rgba(18, 17, 18, .07);
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { animation: none !important; transition: none !important; } }
+body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--font-body); font-size: 17px; line-height: 1.55; -webkit-font-smoothing: antialiased; }
+img { max-width: 100%; height: auto; display: block; }
+main { overflow-x: clip; }
+a { color: inherit; }
+.wrap { width: 100%; max-width: 1240px; margin: 0 auto; padding-inline: 24px; }
+@media (max-width: 600px) { .wrap { padding-inline: 16px; } }
+h1, h2, h3 { margin: 0; letter-spacing: -.025em; line-height: 1.08; text-wrap: balance; }
+p { margin: 0; }
+.gradient-text { background: var(--grad); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+.section-tag { color: var(--accent); font-weight: 700; font-size: 14px; letter-spacing: 1.4px; text-transform: uppercase; }
+.lead { color: var(--muted); font-size: 19px; max-width: 60ch; }
+section { padding-block: 72px; }
+@media (max-width: 760px) { section { padding-block: 52px; } }
+.sec-head { display: grid; gap: 14px; margin-bottom: 40px; max-width: 760px; }
+.sec-head h2 { font-size: clamp(32px, 4.4vw, 52px); font-weight: 800; }
+
+/* buttons: same system as kukuku.club — pill, 600 weight, icon on the left */
+.btn { display: inline-flex; align-items: center; justify-content: center; font-family: var(--font-body); font-weight: 600; font-size: 18px; line-height: 1.5; padding: 12px 32px; border-radius: 32px; border: none; cursor: pointer; text-decoration: none; white-space: nowrap; transition: background .2s, box-shadow .2s, color .2s, border-color .2s, transform .2s; }
+.btn:active { transform: translateY(1px); }
+.btn:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
+.btn__icon { display: inline-flex; margin-right: 10px; flex: none; }
+.btn__icon svg { width: 24px; height: 24px; }
+.btn--primary { background: var(--accent); color: #fff; }
+.btn--primary:hover { background: var(--accent-hover); box-shadow: 0 4px 14px rgba(251, 77, 28, .3); }
+.btn--primary:hover .btn__icon { transform: rotate(-8deg); }
+.btn--primary .btn__icon { transition: transform .2s; }
+.btn--outline { background: transparent; color: var(--ink-2); border: 2px solid rgba(251, 77, 28, .5); padding: 10px 30px; }
+.btn--outline:hover { background: rgba(251, 77, 28, .05); border-color: var(--accent); }
+.btn--outline .btn__icon { color: var(--accent); }
+.btn--large { padding: 16px 40px; font-size: 20px; border-radius: 40px; }
+.btn--outline.btn--large { padding: 14px 38px; }
+.btn--block { width: 100%; padding: 14px; border-radius: 24px; }
+.btn--header { padding: 10px 28px; font-size: 16px; border-radius: 28px; }
+.btn--header .btn__icon svg { width: 20px; height: 20px; }
+@media (max-width: 768px) {
+  .btn--large { padding: 14px 20px; font-size: 17px; border-radius: 30px; }
+  .btn--outline.btn--large { padding: 12px 18px; }
+  .btn__icon svg { width: 22px; height: 22px; }
+  .btn--header { padding: 8px 18px; font-size: 14px; }
+  .btn--header .btn__icon { display: none; }
+}
+@media (max-width: 480px) {
+  .btn--large { font-size: 15px; padding: 12px 16px; }
+  .btn--outline.btn--large { padding: 10px 14px; }
+  .btn--header { padding: 6px 14px; font-size: 12px; border-radius: 20px; }
+}
+
+/* header */
+.header { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20; background: color-mix(in srgb, var(--bg) 88%, transparent); backdrop-filter: blur(10px); }
+.header .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 14px; }
+.logo { font-family: var(--font-logo); font-size: 28px; text-decoration: none; color: #000; }
+.logo small { font-family: var(--font-body); font-size: 13px; font-weight: 600; color: var(--muted); margin-left: 8px; letter-spacing: .2px; }
+.nav { display: flex; gap: 4px; background: rgba(255, 255, 255, .6); border-radius: 96px; padding: 5px; }
+.nav a { text-decoration: none; color: #2E2E2E; font-weight: 500; font-size: 15px; padding: 9px 16px; border-radius: 96px; }
+.nav a:hover { background: #fff; }
+@media (max-width: 900px) { .nav { display: none; } }
+
+/* hero */
+.hero { padding-block: 40px 64px; }
+.hero .wrap { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: 48px; align-items: center; }
+.hero-text { display: grid; gap: 24px; min-width: 0; }
+.badge { display: inline-flex; align-items: center; gap: 9px; justify-self: start; padding: 8px 16px; border-radius: 50px; border: 1px solid var(--badge-line); color: var(--badge); font-size: 14px; font-weight: 600; background: rgba(255, 255, 255, .45); }
+.badge i { width: 8px; height: 8px; border-radius: 50%; background: var(--badge); animation: pulse 1.6s infinite; }
+@keyframes pulse { 50% { opacity: .25; } }
+.hero h1 { font-size: clamp(42px, 6.2vw, 78px); font-weight: 800; }
+.hero .lead { font-size: 20px; }
+.hero-info { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); background: #fff; border-radius: 26px; padding: 18px 8px; box-shadow: var(--shadow); }
+.hero-info div { padding-inline: 16px; display: grid; gap: 2px; min-width: 0; }
+.hero-info div + div { border-left: 1px solid #ddd; }
+.hero-info b { font-size: 18px; }
+.hero-info span { font-size: 14px; color: var(--muted); }
+.hero-cta { display: flex; gap: 16px; flex-wrap: wrap; }
+@media (max-width: 768px) { .hero-cta { flex-direction: column; align-items: stretch; gap: 12px; } }
+
+.devices { position: relative; padding: 0 0 56px; min-width: 0; }
+.tablet { background: var(--device); border-radius: 30px; padding: 14px; box-shadow: 0 30px 60px rgba(18, 17, 18, .18); transform: rotate(-1.5deg); }
+.tablet img { border-radius: 18px; width: 100%; }
+.phone { position: absolute; right: -6px; bottom: 0; width: 34%; max-width: 230px; background: var(--device); border-radius: 34px; padding: 9px; box-shadow: 0 24px 50px rgba(18, 17, 18, .25); transform: rotate(4deg); }
+.phone img { border-radius: 26px; width: 100%; }
+.sticker { position: absolute; left: -10px; bottom: 18px; background: #fff; border-radius: 18px; padding: 12px 16px; box-shadow: var(--shadow); font-weight: 700; font-size: 15px; display: flex; align-items: center; gap: 10px; transform: rotate(-3deg); }
+.sticker span { display: inline-flex; width: 34px; height: 34px; border-radius: 50%; background: var(--grad-diag); color: #fff; align-items: center; justify-content: center; font-family: var(--font-logo); font-size: 18px; }
+@media (max-width: 960px) {
+  .hero .wrap { grid-template-columns: 1fr; }
+  .devices { max-width: 640px; }
+}
+@media (max-width: 520px) {
+  .hero-info { grid-template-columns: 1fr; padding: 8px 4px; }
+  .hero-info div { padding: 10px 14px; }
+  .hero-info div + div { border-left: 0; border-top: 1px solid #eee; }
+  .phone { width: 40%; right: -4px; }
+  .sticker { display: none; }
+}
+
+/* steps */
+.steps { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; counter-reset: step; }
+.step { background: var(--card); border-radius: var(--r-card); padding: 28px 24px; display: grid; gap: 12px; align-content: start; box-shadow: var(--shadow); min-width: 0; }
+.step-num { width: 44px; height: 44px; border-radius: 50%; background: var(--grad-diag); color: #fff; font-weight: 800; font-size: 18px; display: inline-flex; align-items: center; justify-content: center; }
+.step h3 { font-size: 21px; font-weight: 700; letter-spacing: -.01em; }
+.step p { color: var(--muted); font-size: 16px; }
+@media (max-width: 960px) { .steps { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 560px) { .steps { grid-template-columns: 1fr; } }
+
+/* games */
+.games { display: grid; gap: 28px; }
+.game { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr); gap: 40px; align-items: center; background: var(--card); border-radius: 36px; padding: 36px; box-shadow: var(--shadow); }
+.game:nth-child(even) { grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); }
+.game:nth-child(even) .game-text { order: 2; }
+.game-text { display: grid; gap: 16px; min-width: 0; }
+.game-text h3 { font-size: clamp(28px, 3.2vw, 40px); font-weight: 800; }
+.game-text p { color: var(--muted); }
+.chips { display: flex; gap: 8px; flex-wrap: wrap; }
+.chip { font-size: 14px; font-weight: 600; color: var(--ink-2); background: var(--bg); border-radius: 50px; padding: 7px 14px; }
+.game-shot { position: relative; min-width: 0; }
+.game-shot .screen { border-radius: 22px; border: 10px solid var(--device); box-shadow: 0 18px 40px rgba(18, 17, 18, .14); }
+.game-shot .mini { position: absolute; right: -10px; bottom: -26px; width: 30%; max-width: 170px; border: 6px solid var(--device); border-radius: 22px; box-shadow: 0 16px 34px rgba(18, 17, 18, .22); }
+@media (max-width: 900px) {
+  .game, .game:nth-child(even) { grid-template-columns: 1fr; padding: 24px; gap: 28px; }
+  .game:nth-child(even) .game-text { order: 0; }
+  .game-shot { margin-bottom: 18px; }
+}
+
+/* reasons */
+.reasons { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.reason { border-radius: var(--r-card); padding: 26px 24px; background: rgba(255, 255, 255, .55); display: grid; gap: 8px; align-content: start; min-width: 0; }
+.reason h3 { font-size: 20px; font-weight: 700; letter-spacing: -.01em; }
+.reason p { color: var(--muted); font-size: 16px; }
+.reason svg { width: 36px; height: 36px; color: var(--accent); }
+@media (max-width: 900px) { .reasons { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 560px) { .reasons { grid-template-columns: 1fr; } }
+
+/* music band */
+.music { background: var(--grad-diag); border-radius: 40px; padding: 48px; color: #fff; display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 32px; align-items: center; position: relative; overflow: hidden; }
+.music h2 { font-size: clamp(32px, 4.4vw, 52px); font-weight: 800; }
+.music p { opacity: .92; font-size: 18px; max-width: 52ch; }
+.btn--light { background: #fff; color: var(--ink); }
+.btn--light .btn__icon { color: var(--accent); }
+.btn--light:hover { background: #FFF4EE; box-shadow: 0 6px 18px rgba(18, 17, 18, .18); }
+
+.music-text { display: grid; gap: 18px; justify-items: start; min-width: 0; }
+.tracks { display: grid; gap: 12px; min-width: 0; }
+.track { display: flex; align-items: center; gap: 14px; background: #fff; color: var(--ink); border-radius: 22px; padding: 10px 12px 10px 10px; box-shadow: 0 12px 26px rgba(0, 0, 0, .14); min-width: 0; }
+.track__art { width: 64px; height: 64px; border-radius: 14px; overflow: hidden; flex: none; }
+.track__art img { width: 100%; height: 100%; object-fit: cover; }
+.track__art--a { background: linear-gradient(160deg, #16213E, #FB4D1C); }
+.track__art--b { background: linear-gradient(160deg, #FFC857, #FD6A11); }
+.track__art--c { background: linear-gradient(160deg, #0130F0, #FD7E0D); }
+.track__meta { flex: 1; min-width: 0; display: grid; }
+.track__meta b { font-size: 17px; line-height: 1.3; }
+.track__meta span { font-size: 14px; color: var(--muted); }
+.track__play { width: 46px; height: 46px; border-radius: 50%; background: var(--accent); color: #fff; display: inline-flex; align-items: center; justify-content: center; flex: none; border: 0; cursor: pointer; transition: background .2s, transform .2s; }
+.track__play:hover { background: var(--accent-hover); transform: scale(1.06); }
+.track__play:focus-visible { outline: 3px solid var(--ink); outline-offset: 2px; }
+.track__play svg { width: 20px; height: 20px; }
+.track__play .i-pause, .track.is-playing .track__play .i-play { display: none; }
+.track.is-playing .track__play .i-pause { display: block; }
+.track.is-playing .track__meta span { color: var(--accent); }
+.am-badge { display: inline-flex; text-decoration: none; border-radius: 12px; }
+.am-badge img { height: 48px; width: auto; }
+.am-badge .am-fallback { display: none; }
+.am-badge.is-fallback img { display: none; }
+.am-badge.is-fallback .am-fallback { display: inline-flex; }
+@media (max-width: 480px) { .am-badge .am-fallback { font-size: 16px; padding: 12px 22px; white-space: nowrap; } .track__meta b { font-size: 16px; } }
+.am-badge:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
+@media (max-width: 900px) { .music { grid-template-columns: 1fr; padding: 32px 20px; } }
+
+/* price + parties */
+.duo { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+.panel { background: var(--card); border-radius: 36px; padding: 36px; box-shadow: var(--shadow); display: grid; gap: 16px; align-content: start; min-width: 0; }
+.price { font-size: clamp(44px, 6vw, 64px); font-weight: 800; letter-spacing: -.03em; line-height: 1; }
+.panel h3 { font-size: 28px; font-weight: 800; }
+.panel p { color: var(--muted); }
+.price-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.price-list li { display: flex; justify-content: space-between; gap: 12px; padding-bottom: 10px; border-bottom: 1px solid var(--line); font-weight: 600; }
+.price-list li span:last-child { font-variant-numeric: tabular-nums; color: var(--accent); white-space: nowrap; }
+.panel--night { background: #16213E; color: #FFF4E6; box-shadow: none; }
+.panel--night p { color: rgba(255, 244, 230, .75); }
+.panel--night .section-tag { color: #FFC857; }
+.panel--night .btn--outline { color: #FFF4E6; border-color: rgba(255, 200, 87, .6); }
+.panel--night .btn--outline .btn__icon { color: #FFC857; }
+.panel--night .btn--outline:hover { background: rgba(255, 200, 87, .1); border-color: #FFC857; }
+@media (max-width: 860px) { .duo { grid-template-columns: 1fr; } .panel { padding: 28px 24px; } }
+
+/* form */
+.signup { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: 40px; align-items: start; }
+.form { background: var(--card); border-radius: 36px; padding: 32px; box-shadow: var(--shadow); display: grid; gap: 18px; }
+.field { display: grid; gap: 7px; }
+.field > span, .legend { font-size: 14px; font-weight: 600; color: var(--ink-2); }
+.input { width: 100%; font: 500 17px var(--font-body); color: var(--ink); background: #F7F1EC; border: 2px solid transparent; border-radius: var(--r-mid); padding: 14px 16px; outline: none; }
+.input:focus { border-color: rgba(251, 77, 28, .6); }
+.pills { display: flex; gap: 8px; flex-wrap: wrap; }
+.pill input { position: absolute; opacity: 0; pointer-events: none; }
+.pill span { display: inline-block; padding: 10px 16px; border-radius: 50px; background: #F7F1EC; font-weight: 600; font-size: 15px; cursor: pointer; border: 2px solid transparent; }
+.pill input:checked + span { background: var(--accent-soft); border-color: var(--accent); color: var(--accent-hover); }
+.pill input:focus-visible + span { outline: 3px solid var(--ink); outline-offset: 2px; }
+.check { display: flex; gap: 10px; align-items: flex-start; font-size: 14px; color: var(--ink-2); }
+.check input { width: 20px; height: 20px; accent-color: var(--accent); margin: 1px 0 0; flex: none; }
+.form-note { font-size: 14px; color: var(--muted); }
+.form-msg { border-radius: var(--r-mid); padding: 14px 16px; font-weight: 600; background: var(--accent-soft); color: var(--accent-hover); }
+.form-msg.ok { background: rgba(30, 158, 90, .1); color: #1E7A48; }
+@media (max-width: 860px) { .signup { grid-template-columns: 1fr; } .form { padding: 24px 20px; } }
+
+/* faq */
+.faq { display: grid; gap: 12px; max-width: 860px; }
+.faq details { background: var(--card); border-radius: 22px; padding: 20px 24px; box-shadow: 0 6px 20px rgba(18, 17, 18, .04); }
+.faq summary { cursor: pointer; font-weight: 700; font-size: 18px; list-style: none; display: flex; justify-content: space-between; gap: 16px; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: '+'; color: var(--accent); font-size: 24px; line-height: 1; flex: none; }
+.faq details[open] summary::after { content: '–'; }
+.faq details p { color: var(--muted); padding-top: 10px; }
+
+/* footer */
+.footer { padding-block: 40px 56px; border-top: 1px solid var(--line); }
+.footer .wrap { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; color: #4E4E4E; font-size: 15px; }
+.footer nav { display: flex; gap: 20px; flex-wrap: wrap; }
+.footer a { text-decoration: none; }
+.footer a:hover { color: var(--accent); }
+</style>
+
+</head>
+<body>
+<header class="header">
+  <div class="wrap">
+    <a class="logo" href="#top">KuKu'Ku<small>Table</small></a>
+    <nav class="nav" aria-label="Sections">
+      <a href="#how">How it works</a>
+      <a href="#games">Games</a>
+      <a href="#music">Music</a>
+      <a href="#price">Price</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <a class="btn btn--primary btn--header" href="#signup"><span class="btn__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8a2 2 0 0 0 2-2h14a2 2 0 0 0 2 2v2a2 2 0 0 0 0 4v2a2 2 0 0 0-2 2H5a2 2 0 0 0-2-2v-2a2 2 0 0 0 0-4z"/><path d="M14 6v12" stroke-dasharray="2 2.5"/></svg></span>Save my seat</a>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="wrap">
+      <div class="hero-text">
+        <span class="badge"><i></i>First tables coming soon</span>
+        <h1>Come alone. <span class="gradient-text">Leave with friends.</span></h1>
+        <p class="lead">Coffee, 5 to 10 strangers, a tablet full of games and our own music. No awkward first move: the game starts the conversation for you.</p>
+        <div class="hero-info">
+          <div><b>In a café</b><span>we send the address after you sign up</span></div>
+          <div><b>60–80 minutes</b><span>one game</span></div>
+          <div><b>Up to 10 seats</b><span>at one table</span></div>
+        </div>
+        <div class="hero-cta">
+          <a class="btn btn--primary btn--large" href="#signup"><span class="btn__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8a2 2 0 0 0 2-2h14a2 2 0 0 0 2 2v2a2 2 0 0 0 0 4v2a2 2 0 0 0-2 2H5a2 2 0 0 0-2-2v-2a2 2 0 0 0 0-4z"/><path d="M14 6v12" stroke-dasharray="2 2.5"/></svg></span>Save my seat</a>
+          <a class="btn btn--outline btn--large" href="#how"><span class="btn__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M10 8.5v7l6-3.5z" fill="currentColor"/></svg></span>How it works</a>
+        </div>
+      </div>
+      <div class="devices" aria-label="The KuKu'Ku Table game on a tablet and a phone">
+        <div class="tablet"><img src="img/tablet-lobby.jpg" alt="Tablet on the table: QR code, table code and track cards" width="1280" height="832"></div>
+        <div class="phone"><img src="img/phone-myth.jpg" alt="A guest's phone: the Truth or myth? round" width="420" height="700"></div>
+        <div class="sticker"><span>K</span>Your first table is free</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="how">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="section-tag">How it works</span>
+        <h2>Take a seat. The game does the rest.</h2>
+      </div>
+      <div class="steps">
+        <article class="step">
+          <span class="step-num">1</span>
+          <h3>Grab a coffee and a card</h3>
+          <p>Each card is the title of one of our songs. It is your name for the game, no need to share your real one.</p>
+        </article>
+        <article class="step">
+          <span class="step-num">2</span>
+          <h3>Scan the QR code</h3>
+          <p>Your phone becomes the controller. No app, no sign-up. Play in English or your native language.</p>
+        </article>
+        <article class="step">
+          <span class="step-num">3</span>
+          <h3>Play for 60–80 minutes</h3>
+          <p>The tablet runs the rounds, a host helps out, the speaker plays KuKu'Ku music.</p>
+        </article>
+        <article class="step">
+          <span class="step-num">4</span>
+          <h3>Stay in touch</h3>
+          <p>Liked the company? Leave your contacts and we will seat you together again.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="games">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="section-tag">The games</span>
+        <h2>Three games, and you are strangers no more</h2>
+        <p class="lead">Rounds follow one another and your phone needs only a couple of taps. The rest of the time you talk and laugh.</p>
+      </div>
+      <div class="games">
+        <article class="game">
+          <div class="game-text">
+            <span class="section-tag">Our music</span>
+            <h3>What do you hear in this song?</h3>
+            <p>We play a track by FunkaFunka, the music project behind KuKu'Ku. Everyone writes on their phone how it made them feel. AI turns the answers into a summary of the table and a question to talk about. Whoever holds that track's card speaks first.</p>
+            <div class="chips"><span class="chip">FunkaFunka tracks</span><span class="chip">AI summary</span><span class="chip">anonymous</span></div>
+          </div>
+          <div class="game-shot">
+            <img class="screen" src="img/game-music.jpg" alt="The table's summary after a track, written by AI" width="1280" height="640" loading="lazy">
+            <img class="mini" src="img/phone-answer.jpg" alt="Phone: what did you feel?" width="420" height="700" loading="lazy">
+          </div>
+        </article>
+        <article class="game">
+          <div class="game-text">
+            <span class="section-tag">Fun facts</span>
+            <h3>Truth or myth?</h3>
+            <p>Three facts about the place you are in, the city around it or the coffee in your cup. One of them is made up. Argue it out, vote on your phones and see the answer. Locals get surprised as often as newcomers.</p>
+            <div class="chips"><span class="chip">debate guaranteed</span><span class="chip">new facts every table</span></div>
+          </div>
+          <div class="game-shot">
+            <img class="screen" src="img/game-myth.jpg" alt="The answer in Truth or myth?: the myth is highlighted" width="1280" height="640" loading="lazy">
+          </div>
+        </article>
+        <article class="game">
+          <div class="game-text">
+            <span class="section-tag">For the laughs</span>
+            <h3>Draw → phrase</h3>
+            <p>Your neighbour draws your phrase, the next player describes the drawing, and round it goes. At the end you see what your phrase turned into. Every phrase is translated into each player's language, so mixed tables play together.</p>
+            <div class="chips"><span class="chip">draw with a finger</span><span class="chip">mixed-language tables</span><span class="chip">no drawing skills needed</span></div>
+          </div>
+          <div class="game-shot">
+            <img class="screen" src="img/game-draw.jpg" alt="A chain: phrase, drawing and a new phrase" width="1280" height="614" loading="lazy">
+            <img class="mini" src="img/phone-draw.jpg" alt="Phone: draw this" width="420" height="775" loading="lazy">
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="section-tag">Why it is easy</span>
+        <h2>The game takes care of the awkward part</h2>
+      </div>
+      <div class="reasons">
+        <article class="reason">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/></svg>
+          <h3>No small-talk panic</h3>
+          <p>The game gives you something to talk about: a song, a tricky fact or a silly drawing.</p>
+        </article>
+        <article class="reason">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+          <h3>Come on your own</h3>
+          <p>That is what the table is for. Bringing a friend is fine too.</p>
+        </article>
+        <article class="reason">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="9" r="3"/><circle cx="16" cy="9" r="3"/><path d="M2 20c.6-3 3-5 6-5s5.4 2 6 5M14 15.2c.6-.1 1.3-.2 2-.2 3 0 5.4 2 6 5"/></svg>
+          <h3>Not a dating thing</h3>
+          <p>We bring together a group, not couples. No questions about relationships.</p>
+        </article>
+        <article class="reason">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="7" y="2" width="10" height="20" rx="2.5"/><path d="M11 18h2"/></svg>
+          <h3>Your phone is just a remote</h3>
+          <p>A couple of taps, then eyes back on each other, not on screens.</p>
+        </article>
+        <article class="reason">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3z"/></svg>
+          <h3>Your own language</h3>
+          <p>Everyone plays in their own: English or their native language.</p>
+        </article>
+        <article class="reason">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="2.5"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
+          <h3>Answers stay anonymous</h3>
+          <p>In the game you are a song title. Answers are deleted when the game ends.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="music">
+    <div class="wrap">
+      <div class="music">
+        <div class="music-text">
+          <span class="section-tag" style="color:#FFF4E6">Music by FunkaFunka</span>
+          <h2>The cards on the table are our songs</h2>
+          <p>Every track you hear at the table is by FunkaFunka, the music project of KuKu'Ku. Here are three of them. Listen before you come and you may already know which card to pick.</p>
+          <a class="am-badge" href="https://music.apple.com/il/artist/funkafunka/6791572586" target="_blank" rel="noopener">
+            <img src="img/apple-music-badge.svg" alt="Listen on Apple Music" height="48">
+            <span class="am-fallback btn btn--light"><span class="btn__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></span>Listen on Apple Music</span>
+          </a>
+        </div>
+        <div class="tracks" aria-label="FunkaFunka tracks">
+          <div class="track" data-audio="">
+            <div class="track__art track__art--a"><img src="img/cover-dancing-with-tomorrow.jpg" alt="" width="64" height="64" loading="lazy"></div>
+            <div class="track__meta"><b>Dancing With Tomorrow</b><span>FunkaFunka · Single</span></div>
+            <a class="track__play" href="https://music.apple.com/il/artist/funkafunka/6791572586" target="_blank" rel="noopener" aria-label="Play Dancing With Tomorrow"><svg class="i-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg><svg class="i-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 5h3.5v14H7zM13.5 5H17v14h-3.5z" fill="currentColor"/></svg></a>
+          </div>
+          <div class="track" data-audio="">
+            <div class="track__art track__art--b"><img src="img/cover-summer-shine.jpg" alt="" width="64" height="64" loading="lazy"></div>
+            <div class="track__meta"><b>Summer Shine</b><span>FunkaFunka · Single</span></div>
+            <a class="track__play" href="https://music.apple.com/il/artist/funkafunka/6791572586" target="_blank" rel="noopener" aria-label="Play Summer Shine"><svg class="i-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg><svg class="i-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 5h3.5v14H7zM13.5 5H17v14h-3.5z" fill="currentColor"/></svg></a>
+          </div>
+          <div class="track" data-audio="">
+            <div class="track__art track__art--c"><img src="img/cover-sunshine-and-soul.jpg" alt="" width="64" height="64" loading="lazy"></div>
+            <div class="track__meta"><b>Sunshine and Soul</b><span>FunkaFunka · Single</span></div>
+            <a class="track__play" href="https://music.apple.com/il/artist/funkafunka/6791572586" target="_blank" rel="noopener" aria-label="Play Sunshine and Soul"><svg class="i-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg><svg class="i-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 5h3.5v14H7zM13.5 5H17v14h-3.5z" fill="currentColor"/></svg></a>
+          </div>
+        </div>
+      </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="price">
+    <div class="wrap duo">
+      <article class="panel">
+        <span class="section-tag">Price</span>
+        <div class="price"><span class="gradient-text">0</span></div>
+        <h3>Your first table is free</h3>
+        <p>You only pay the café for your coffee. After that, each game has a small fee per person. We tell you the price before you book.</p>
+        <ul class="price-list">
+          <li><span>First game</span><span>free</span></li>
+          <li><span>Next games</span><span>small fee per person</span></li>
+          <li><span>Coffee and drinks</span><span>café menu prices</span></li>
+        </ul>
+      </article>
+      <article class="panel panel--night">
+        <span class="section-tag">Next: the parties</span>
+        <h3>KuKu'Ku Night Parties</h3>
+        <p>Once a month, guests from all tables meet at a KuKu'Ku party: a DJ, live vocals and our own music. You will already know some faces. Day parties are coming soon too.</p>
+        <div><a class="btn btn--outline" href="https://kukuku.club/" target="_blank" rel="noopener"><span class="btn__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg></span>About the parties</a></div>
+      </article>
+    </div>
+  </section>
+
+  <section id="signup">
+    <div class="wrap signup">
+      <div class="sec-head" style="margin:0">
+        <span class="section-tag">Sign up</span>
+        <h2>Save your seat at the table</h2>
+        <p class="lead">Leave a contact and we will message you when and where the next table is. No spam, only game invites.</p>
+      </div>
+      <form class="form" id="signupForm" novalidate data-endpoint="signup.php">
+        <label class="field"><span>Your name</span><input class="input" id="f-name" name="name" autocomplete="given-name" required maxlength="80"></label>
+        <label class="field"><span>Phone, WhatsApp or Telegram</span><input class="input" id="f-contact" name="contact" autocomplete="tel" required maxlength="80" placeholder="+… or @username"></label>
+        <div class="field">
+          <span class="legend" id="time-label">Best time for you</span>
+          <div class="pills" role="group" aria-labelledby="time-label">
+            <label class="pill"><input type="checkbox" name="time" value="weekday-morning" id="t-1"><span>Weekday mornings</span></label>
+            <label class="pill"><input type="checkbox" name="time" value="weekday-evening" id="t-2"><span>Weekday evenings</span></label>
+            <label class="pill"><input type="checkbox" name="time" value="weekend" id="t-3"><span>Weekends</span></label>
+          </div>
+        </div>
+        <label class="check"><input type="checkbox" id="f-consent" name="consent" required><span>I agree that KuKu'Ku may message me about upcoming tables and parties.</span></label>
+        <div class="form-msg" id="formMsg" hidden></div>
+        <button class="btn btn--primary btn--block" type="submit"><span class="btn__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2 11 13M22 2l-7 20-4-9-9-4z"/></svg></span>Save my seat</button>
+        <p class="form-note">Your first table is free. We will message you the address and time.</p>
+      </form>
+    </div>
+  </section>
+
+  <section id="faq">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="section-tag">FAQ</span>
+        <h2>Questions people ask</h2>
+      </div>
+      <div class="faq">
+        <details open><summary>Can I come alone?</summary><p>Yes, that is the whole idea. Everyone else is there to meet new people too.</p></details>
+        <details><summary>Is it a dating thing?</summary><p>No. We bring together a group, not couples, and the games never ask about relationships.</p></details>
+        <details><summary>I am not very talkative. Will it be awkward?</summary><p>You answer on your phone and the game gives you something to talk about. Talk as much or as little as you like.</p></details>
+        <details><summary>What language is the game in?</summary><p>Everyone picks their language on their phone: English or their native language. At the table, speak whatever works for you.</p></details>
+        <details><summary>Do I need to download an app?</summary><p>No. Scan the QR code on the table and the game opens in your browser.</p></details>
+        <details><summary>How long does it take?</summary><p>60–80 minutes. You can leave earlier and the game carries on without you.</p></details>
+        <details><summary>What happens to my data?</summary><p>In the game you are a song title. Answers are anonymous and deleted after the game. We keep your contacts only if you leave them at the end.</p></details>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <a class="logo" href="#top">KuKu'Ku</a>
+    <nav aria-label="Links">
+      <a href="#games">Games</a>
+      <a href="#signup">Sign up</a>
+      <a href="https://music.apple.com/il/artist/funkafunka/6791572586" target="_blank" rel="noopener">FunkaFunka</a>
+      <a href="https://kukuku.club/" target="_blank" rel="noopener">Parties</a>
+    </nav>
+    <span>© 2026 KuKu'Ku</span>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var form = document.getElementById('signupForm');
+  var msg = document.getElementById('formMsg');
+  function show(text, ok) { msg.textContent = text; msg.className = 'form-msg' + (ok ? ' ok' : ''); msg.hidden = false; }
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var name = document.getElementById('f-name').value.trim();
+    var contact = document.getElementById('f-contact').value.trim();
+    if (!name) { show('Please add your name.'); return; }
+    if (contact.length < 5) { show('Add a phone, WhatsApp or Telegram so we can message you.'); return; }
+    if (!document.getElementById('f-consent').checked) { show('Please tick the box so we can message you.'); return; }
+    var data = {
+      name: name, contact: contact,
+      time: Array.prototype.map.call(form.querySelectorAll('input[name=time]:checked'), function (i) { return i.value; })
+    };
+    var endpoint = form.getAttribute('data-endpoint');
+    if (!endpoint) {
+      // Preview: sending is not connected yet. On the site the programmer sets data-endpoint.
+      show('This is a preview: sending will work on the live site. Nothing was sent.');
+      return;
+    }
+    fetch(endpoint, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) })
+      .then(function (r) { if (!r.ok) { throw new Error(); } show('Done! We will message you about the next table.', true); form.reset(); })
+      .catch(function () { show('Could not send. Please try again in a minute.'); });
+  });
+})();
+</script>
+<script>
+(function () {
+  // Apple Music badge: show a text button until the official badge file is in img/
+  document.querySelectorAll('.am-badge').forEach(function (a) {
+    var img = a.querySelector('img');
+    function fail() { a.classList.add('is-fallback'); }
+    img.addEventListener('error', fail);
+    if (img.complete && !img.naturalWidth) { fail(); }
+  });
+  // If a cover does not load, the gradient behind it stays
+  document.querySelectorAll('.track__art img').forEach(function (img) {
+    img.addEventListener('error', function () { img.remove(); });
+  });
+  // Play buttons: play the file from data-audio; without a file they open Apple Music
+  var current = null, audio = new Audio();
+  document.querySelectorAll('.track').forEach(function (t) {
+    var btn = t.querySelector('.track__play');
+    btn.addEventListener('click', function (e) {
+      var src = t.getAttribute('data-audio');
+      if (!src) { return; }
+      e.preventDefault();
+      if (current === t && !audio.paused) { audio.pause(); t.classList.remove('is-playing'); return; }
+      if (current !== t) { if (current) { current.classList.remove('is-playing'); } audio.src = src; current = t; }
+      audio.play().then(function () { t.classList.add('is-playing'); }).catch(function () { t.classList.remove('is-playing'); });
+    });
+  });
+  audio.addEventListener('ended', function () { if (current) { current.classList.remove('is-playing'); } });
+})();
+</script>
+
+</body>
+</html>
