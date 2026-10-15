@@ -47,6 +47,8 @@ function start_session(): void
             'samesite' => 'Lax',
             'secure'   => !empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off',
         ]);
+        ini_set('session.gc_maxlifetime', '86400');
+        ini_set('session.cookie_lifetime', '86400');
         session_start();
     }
 }
